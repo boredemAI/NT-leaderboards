@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nitro Type Team Leaderboards</title>
+<meta name="description" content="Live daily and all-time Nitro Type team leaderboards by races — auto-refreshed every 5 minutes."/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23121212'/%3E%3Ctext x='32' y='44' font-family='monospace' font-size='36' text-anchor='middle' fill='%23f15b40' font-weight='700'%3ENT%3C/text%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --accent: #f15b40;
+    --accent-soft: rgba(241,91,64,0.15);
+    --gold: #f1c40f;
+    --silver: #bdc3c7;
+    --bronze: #cd7f32;
+    --bg: #121212;
+    --bg2: #1a1a1a;
+    --bg3: #1f1f1f;
+    --border: #262626;
+    --text: #e6e6e6;
+    --muted: #6b6b6b;
+    --muted-2: #888;
+    --mono: 'Share Tech Mono', monospace;
+    --display: 'Bebas Neue', sans-serif;
+    --body: 'Rajdhani', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  ::selection { background: var(--accent); color: #fff; }
+  ::-moz-selection { background: var(--accent); color: #fff; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px);
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 40px;
+    background: rgba(8,8,8,0.92);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-logo .bracket { color: var(--muted-2); }
+
+  .nav-status {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  /* HERO */
+  .hero {
+    padding: 64px 40px 32px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    opacity: 0.3;
+    pointer-events: none;
+  }
+  .hero > * { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: var(--accent);
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+
+  .hero-title {
+    font-family: var(--display);
+    font-size: clamp(44px, 8vw, 88px);
+    letter-spacing: 4px;
+    line-height: 1;
+    color: #fff;
+  }
+  .hero-title .accent { color: var(--accent); }
+
+  .hero-sub {
+    margin-top: 14px;
+    font-size: 16px;
+    color: var(--muted-2);
+    letter-spacing: 0.5px;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .updated {
+    margin-top: 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+  }
+  .updated .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 6px;
+    vertical-align: middle;
+    animation: pulse 2s infinite;
+  }
+
+  /* LAYOUT */
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .tabs {
+    display: inline-flex;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    background: var(--bg2);
+  }
+
+  .tabs button {
+    background: transparent;
+    border: none;
+    color: var(--muted-2);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 12px 22px;
+    cursor: pointer;
+    transition: color 0.15s, background 0.15s;
+  }
+  .tabs button:hover { color: #fff; }
+  .tabs button.active {
+    color: #fff;
+    background: var(--accent);
+  }
+
+  .search {
+    flex: 1;
+    min-width: 220px;
+    display: flex;
+    align-items: center;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 0 12px;
+    border-radius: 2px;
+  }
+  .search input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 14px;
+    padding: 12px 8px;
+    letter-spacing: 0.5px;
+  }
+  .search svg { color: var(--muted); flex-shrink: 0; }
+
+  .highlight-input {
+    display: flex;
+    align-items: center;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 0 10px 0 14px;
+    border-radius: 2px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .highlight-input input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+    padding: 10px 8px;
+    width: 100px;
+    text-transform: uppercase;
+  }
+
+  .meta-line {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .meta-line strong { color: var(--accent); font-weight: normal; }
+
+  /* TABLE */
+  .table-wrap {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  thead th {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding: 14px 16px;
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    user-select: none;
+  }
+  thead th.num { text-align: right; }
+  thead th.sortable { cursor: pointer; }
+  thead th.sortable:hover { color: #fff; }
+  thead th.sort-asc::after  { content: ' ▲'; color: var(--accent); }
+  thead th.sort-desc::after { content: ' ▼'; color: var(--accent); }
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--bg3); }
+  tbody td {
+    padding: 12px 16px;
+    vertical-align: middle;
+  }
+  tbody tr.highlight {
+    background: var(--accent-soft) !important;
+    outline: 1px solid var(--accent);
+    outline-offset: -1px;
+  }
+
+  td.rank {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted-2);
+    width: 64px;
+  }
+  td.rank.top1 { color: var(--gold); font-weight: 700; }
+  td.rank.top2 { color: var(--silver); font-weight: 700; }
+  td.rank.top3 { color: var(--bronze); font-weight: 700; }
+
+  .team {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+  .team a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .team a:hover { color: var(--accent); }
+  .tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 3px 7px;
+    border-radius: 2px;
+    color: #fff;
+    background: #444;
+    flex-shrink: 0;
+  }
+
+  td.num {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text);
+    text-align: right;
+    white-space: nowrap;
+  }
+  td.num.primary { color: var(--accent); font-size: 14px; }
+
+  .tier-pill {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 2px 6px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--muted-2);
+  }
+
+  /* STATES */
+  .state {
+    padding: 60px 24px;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .state.error { color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    padding: 28px 24px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--muted);
+  }
+  footer a { color: var(--muted-2); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+
+  /* RESPONSIVE */
+  @media (max-width: 720px) {
+    nav { padding: 12px 16px; }
+    .hero { padding: 44px 16px 24px; }
+    main { padding: 20px 12px 60px; }
+    .controls { flex-direction: column; align-items: stretch; }
+    .search, .highlight-input { min-width: 0; }
+    td.hide-sm, th.hide-sm { display: none; }
+    tbody td, thead th { padding: 10px 10px; }
+    .hero-sub { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/"><span class="bracket">[</span>NT<span class="bracket">]</span> TEAM LEADERBOARDS</a>
+  <div class="nav-status">
+    <div class="status-dot"></div>
+    Live
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">Nitro Type · Team Rankings</div>
+  <h1 class="hero-title"><span class="accent">TEAM</span> LEADERBOARDS</h1>
+  <p class="hero-sub">Daily race counts and all-time race totals for every tracked Nitro Type team. Refreshed every 5 minutes straight from the data source.</p>
+  <div class="updated" id="updated"><span class="dot"></span> Loading…</div>
+</section>
+
+<main>
+  <div class="controls">
+    <div class="tabs" role="tablist" aria-label="Leaderboard window">
+      <button class="active" data-board="daily"   role="tab" aria-selected="true">Daily Races</button>
+      <button             data-board="allTime" role="tab" aria-selected="false">Most Ever</button>
+    </div>
+    <label class="search" aria-label="Search teams">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input id="search" type="search" placeholder="Search by tag or name…" autocomplete="off"/>
+    </label>
+    <label class="highlight-input" aria-label="Highlight team">
+      Highlight
+      <input id="highlight" type="text" placeholder="TAG" maxlength="10" autocomplete="off"/>
+    </label>
+  </div>
+
+  <div class="meta-line" id="meta"></div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="sortable" data-key="rank">#</th>
+          <th class="sortable" data-key="name">Team</th>
+          <th class="sortable num sort-desc" data-key="races">Races</th>
+          <th class="sortable num hide-sm" data-key="wpm">WPM</th>
+          <th class="sortable num hide-sm" data-key="accuracy">Acc</th>
+          <th class="sortable num hide-sm" data-key="points">Points</th>
+          <th class="hide-sm">Tier</th>
+        </tr>
+      </thead>
+      <tbody id="rows">
+        <tr><td colspan="7" class="state">Loading leaderboards…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<footer>
+  Data via <a href="https://ntstartrack.org" target="_blank" rel="noopener">ntstartrack.org</a> &amp; <a href="https://www.nitrotype.com" target="_blank" rel="noopener">Nitro Type</a> ·
+  <a href="https://github.com/boredemAI/nt-leaderboards" target="_blank" rel="noopener">Source on GitHub</a>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  const LS_HIGHLIGHT = 'ntlb:highlight';
+  const state = {
+    board:    'daily',
+    sortKey:  'races',
+    sortDir:  'desc',
+    query:    '',
+    highlight: initialHighlight(),
+    data:     null,
+  };
+
+  const $rows      = document.getElementById('rows');
+  const $meta      = document.getElementById('meta');
+  const $updated   = document.getElementById('updated');
+  const $search    = document.getElementById('search');
+  const $highlight = document.getElementById('highlight');
+  $highlight.value = state.highlight;
+
+  function initialHighlight() {
+    const url = new URL(window.location.href);
+    const fromUrl = url.searchParams.get('tag') || url.searchParams.get('highlight');
+    if (fromUrl) return sanitizeTag(fromUrl);
+    try { return sanitizeTag(localStorage.getItem(LS_HIGHLIGHT) || ''); }
+    catch (_) { return ''; }
+  }
+
+  function sanitizeTag(s) {
+    return String(s || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 10);
+  }
+
+  function fmtInt(n)    { return Number(n).toLocaleString('en-US'); }
+  function fmtWpm(n)    { return n ? n.toFixed(1) : '—'; }
+  function fmtAcc(n)    { return n ? (n * 100).toFixed(1) + '%' : '—'; }
+  function fmtPoints(n) {
+    if (!n) return '—';
+    if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
+    if (n >= 1e3) return (n / 1e3).toFixed(1) + 'k';
+    return Math.round(n).toLocaleString('en-US');
+  }
+  function fmtAge(ms) {
+    const s = Math.max(0, Math.floor((Date.now() - ms) / 1000));
+    if (s < 60) return s + 's ago';
+    if (s < 3600) return Math.floor(s / 60) + 'm ago';
+    return Math.floor(s / 3600) + 'h ago';
+  }
+
+  function renderUpdated() {
+    if (!state.data) return;
+    $updated.innerHTML =
+      '<span class="dot"></span> Updated ' + fmtAge(state.data.generatedAt);
+  }
+
+  function render() {
+    if (!state.data) return;
+
+    const board = state.data[state.board];
+    if (!board) {
+      $rows.innerHTML = '<tr><td colspan="7" class="state error">No data</td></tr>';
+      return;
+    }
+
+    $meta.innerHTML =
+      '<strong>' + escapeHtml(board.window.label) + '</strong> · ' +
+      board.teams.length + ' teams';
+
+    const q = state.query.trim().toLowerCase();
+    let teams = board.teams.slice();
+    if (q) {
+      teams = teams.filter(
+        (t) =>
+          t.tag.toLowerCase().includes(q) ||
+          t.name.toLowerCase().includes(q)
+      );
+    }
+
+    const key = state.sortKey;
+    const dir = state.sortDir === 'asc' ? 1 : -1;
+    teams.sort((a, b) => {
+      const av = a[key];
+      const bv = b[key];
+      if (typeof av === 'string' || typeof bv === 'string') {
+        return String(av).localeCompare(String(bv)) * dir;
+      }
+      return (av - bv) * dir;
+    });
+
+    if (!teams.length) {
+      $rows.innerHTML =
+        '<tr><td colspan="7" class="state">No teams match "' +
+        escapeHtml(state.query) + '"</td></tr>';
+      return;
+    }
+
+    const highlight = state.highlight;
+    const frag = document.createDocumentFragment();
+    teams.forEach((t) => {
+      const tr = document.createElement('tr');
+      if (highlight && t.tag.toUpperCase() === highlight) tr.classList.add('highlight');
+
+      const rankClass =
+        t.rank === 1 ? ' top1' :
+        t.rank === 2 ? ' top2' :
+        t.rank === 3 ? ' top3' : '';
+
+      tr.innerHTML =
+        '<td class="rank' + rankClass + '">' + t.rank + '</td>' +
+        '<td><div class="team">' +
+          '<span class="tag" style="background:' + tagBg(t.tagColor) + '">' + escapeHtml(t.tag) + '</span>' +
+          '<a href="https://www.nitrotype.com/team/' + encodeURIComponent(t.tag) + '" target="_blank" rel="noopener" title="' + escapeHtml(t.name) + '">' + escapeHtml(t.name || t.tag) + '</a>' +
+        '</div></td>' +
+        '<td class="num primary">' + fmtInt(t.races) + '</td>' +
+        '<td class="num hide-sm">' + fmtWpm(t.wpm) + '</td>' +
+        '<td class="num hide-sm">' + fmtAcc(t.accuracy) + '</td>' +
+        '<td class="num hide-sm">' + fmtPoints(t.points) + '</td>' +
+        '<td class="hide-sm"><span class="tier-pill">T' + (t.leagueTier || '—') + '</span></td>';
+      frag.appendChild(tr);
+    });
+
+    $rows.replaceChildren(frag);
+
+    document.querySelectorAll('thead th.sortable').forEach((th) => {
+      th.classList.remove('sort-asc', 'sort-desc');
+      if (th.dataset.key === state.sortKey) {
+        th.classList.add(state.sortDir === 'asc' ? 'sort-asc' : 'sort-desc');
+      }
+    });
+  }
+
+  function tagBg(color) {
+    if (!color) return '#444';
+    const c = color.replace('#', '');
+    if (/^[0-9a-f]{6}$/i.test(c)) return '#' + c;
+    return '#444';
+  }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  async function load() {
+    try {
+      const url = '/api/leaderboards' +
+        (state.highlight ? '?tag=' + encodeURIComponent(state.highlight) : '');
+      const res = await fetch(url, { headers: { Accept: 'application/json' } });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      state.data = await res.json();
+      render();
+      renderUpdated();
+    } catch (err) {
+      $rows.innerHTML =
+        '<tr><td colspan="7" class="state error">Failed to load leaderboards: ' +
+        escapeHtml(String(err.message || err)) + '</td></tr>';
+    }
+  }
+
+  // Tabs
+  document.querySelectorAll('.tabs button').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tabs button').forEach((b) => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      state.board = btn.dataset.board;
+      state.sortKey = 'races';
+      state.sortDir = 'desc';
+      render();
+    });
+  });
+
+  // Sort
+  document.querySelectorAll('thead th.sortable').forEach((th) => {
+    th.addEventListener('click', () => {
+      const key = th.dataset.key;
+      if (state.sortKey === key) {
+        state.sortDir = state.sortDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        state.sortKey = key;
+        state.sortDir = key === 'rank' || key === 'name' ? 'asc' : 'desc';
+      }
+      render();
+    });
+  });
+
+  // Search (debounced)
+  let searchTimer;
+  $search.addEventListener('input', (e) => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      state.query = e.target.value || '';
+      render();
+    }, 120);
+  });
+
+  // Highlight (debounced, persisted)
+  let highlightTimer;
+  $highlight.addEventListener('input', (e) => {
+    clearTimeout(highlightTimer);
+    const cleaned = sanitizeTag(e.target.value);
+    if (cleaned !== e.target.value) e.target.value = cleaned;
+    highlightTimer = setTimeout(() => {
+      state.highlight = cleaned;
+      try { localStorage.setItem(LS_HIGHLIGHT, cleaned); } catch (_) {}
+      render();
+    }, 150);
+  });
+
+  // Auto-refresh
+  load();
+  setInterval(load, 5 * 60 * 1000);
+  setInterval(renderUpdated, 15 * 1000);
+})();
+</script>
+
+</body>
+</html>

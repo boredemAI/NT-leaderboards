@@ -1,0 +1,45 @@
+name: Snapshot team leaderboards
+
+# Captures the previous UTC day's daily-race leaderboard plus the all-time
+# (since-tracker-start) leaderboard, and commits a dated JSON snapshot to
+# data/snapshots/. Runs at 00:15 UTC daily (15 minutes after day rollover so
+# the upstream StarTrack aggregates have a chance to settle).
+
+on:
+  schedule:
+    - cron: '15 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: snapshot-leaderboards
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate snapshot
+        run: node scripts/snapshot-leaderboards.mjs
+
+      - name: Commit snapshot
+        run: |
+          if [ -z "$(git status --porcelain data/snapshots)" ]; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/snapshots
+          git commit -m "chore(data): daily leaderboard snapshot $(date -u +%Y-%m-%d)"
+          git push

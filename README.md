@@ -14,7 +14,7 @@ loads that static JSON at page load. No third-party tracker, no scraping.
 
 Users can submit new teams via the **Request a team** button. Submissions are
 validated against Nitro Type's own API and appended to `data/teams.json`; the
-next daily snapshot picks them up automatically.
+next hourly snapshot picks them up automatically.
 
 ## Structure
 
@@ -24,15 +24,15 @@ nt-leaderboards/
 ├── data/
 │   ├── teams.json                   ← curated list of NT team tags (seed)
 │   └── snapshots/
-│       ├── latest.json              ← served by the site
-│       └── <YYYY-MM-DD>.json        ← daily archive
+│       ├── latest.json              ← served by the site (rewritten hourly)
+│       └── <YYYY-MM-DD>.json        ← closed-day archive (one per UTC day)
 ├── scripts/
 │   └── snapshot-leaderboards.mjs    ← Node 18+ snapshot generator (no deps)
 ├── functions/api/
 │   └── request-team.js              ← Cloudflare Pages Function:
 │                                       validates + commits new tag
 ├── .github/workflows/
-│   └── snapshot-leaderboards.yml    ← cron @ 00:15 UTC daily
+│   └── snapshot-leaderboards.yml    ← cron @ :00 every hour (UTC)
 └── README.md
 ```
 
@@ -47,9 +47,10 @@ nt-leaderboards/
   under NT's Cloudflare rate-limit), normalizes each team's stats, sorts by
   races for each window, and writes:
   - `data/snapshots/latest.json` (always overwritten)
-  - `data/snapshots/<yesterday-UTC>.json` (daily archive)
-- `.github/workflows/snapshot-leaderboards.yml` runs the script daily at
-  00:15 UTC and commits the updated files with `contents: write`.
+  - `data/snapshots/<yesterday-UTC>.json` (closed-day archive, written once
+    per UTC day; subsequent same-day runs skip it to avoid git churn)
+- `.github/workflows/snapshot-leaderboards.yml` runs the script every hour
+  (at :00 UTC) and commits the updated files with `contents: write`.
 
 ## Data fields
 
@@ -102,8 +103,8 @@ Flow:
 4. If the tag is new, appends it (alphabetically sorted) and commits the
    update with message `feat(data): request adds team <TAG>` (retries up to
    3 times on SHA conflict).
-5. Responds `{ tag, name, alreadyTracked }`. Next scheduled snapshot run
-   (`.github/workflows/snapshot-leaderboards.yml`, daily at 00:15 UTC)
+5. Responds `{ tag, name, alreadyTracked }`. The next scheduled snapshot run
+   (`.github/workflows/snapshot-leaderboards.yml`, hourly at :00 UTC)
    includes the newly added tag automatically.
 
 ## Deploy (Cloudflare Pages)

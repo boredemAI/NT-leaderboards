@@ -3,14 +3,14 @@ name: Snapshot team leaderboards
 # Fetches the latest stats for every tag in data/teams.json directly from
 # https://www.nitrotype.com/api/v2/teams/<TAG> and writes:
 #   - data/snapshots/latest.json            (served by the site)
-#   - data/snapshots/<yesterday-utc>.json   (dated archive)
+#   - data/snapshots/<yesterday-utc>.json   (dated archive, written once/day)
 #
-# Runs once/day at 00:15 UTC (15 minutes after day rollover so NT has a chance
-# to update its rolling 24h stats).
+# Runs hourly (at :00 UTC). Full crawl is ~7 minutes (197 teams, 2s paced),
+# well under the 1-hour window.
 
 on:
   schedule:
-    - cron: '15 0 * * *'
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 permissions:

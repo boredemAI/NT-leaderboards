@@ -73,6 +73,7 @@ async function ghFetch(env, path, init = {}) {
   const headers = {
     Authorization: `Bearer ${env.GITHUB_TOKEN}`,
     Accept: 'application/vnd.github+json',
+    'Content-Type': 'application/json',
     'X-GitHub-Api-Version': '2022-11-28',
     'User-Agent': 'nt-leaderboards-request-team/1.0',
     ...(init.headers || {}),

@@ -10,13 +10,14 @@
 // run locally: `node scripts/snapshot-leaderboards.mjs`.
 //
 // Outputs:
-//   data/snapshots/latest.json      (always updated, used by the site)
+//   data/snapshots/latest.json       (rewritten every run, used by the site)
 //   data/snapshots/<YYYY-MM-DD>.json (written once per UTC day — yesterday's
-//                                    closed-day archive; overwritten if re-run)
+//                                    closed-day archive; subsequent runs on
+//                                    the same UTC day skip rewriting it)
 //
 // No dependencies beyond Node 18+ built-in fetch.
 
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, access } from 'node:fs/promises';
 import { join } from 'node:path';
 
 const NT_TEAM_API = 'https://www.nitrotype.com/api/v2/teams/';
@@ -205,11 +206,19 @@ async function main() {
   const json = JSON.stringify(snapshot, null, 2) + '\n';
 
   await writeFile(latestPath, json);
-  // Daily archive of the closed UTC day — safe to overwrite (last write of the day wins).
-  await writeFile(archivePath, json);
+  // Daily archive of the closed UTC day — only the first run after day rollover
+  // writes it; subsequent runs the same UTC day skip to avoid churning git.
+  let archiveWritten = false;
+  try {
+    await access(archivePath);
+  } catch {
+    await writeFile(archivePath, json);
+    archiveWritten = true;
+  }
 
   console.error('Wrote', latestPath);
-  console.error('Wrote', archivePath);
+  if (archiveWritten) console.error('Wrote', archivePath);
+  else console.error('Skipped archive (already exists):', archivePath);
   console.error(
     `Teams — ok:${ok} fail:${fail} | daily leaderboard:${snapshot.daily.teams.length} | all-time:${snapshot.allTime.teams.length}`,
   );

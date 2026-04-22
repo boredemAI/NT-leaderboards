@@ -30,7 +30,9 @@ const USER_AGENT  =
   'Chrome/123.0.0.0 Safari/537.36';
 const CONTACT     = 'nt-leaderboards bot (https://github.com/boredemAI/NT-leaderboards)';
 const CONCURRENCY = 1;            // serial — Cloudflare in front of NT aggressively rate-limits (1015)
-const PER_REQ_DELAY_MS = 3500;    // slower baseline pacing to stay under NT's bucket
+const PER_REQ_DELAY_MS = 4600;    // ~13 teams/min — matches the rate a long-running
+                                  // NT stats consumer (Starlight) reports as "clean"
+                                  // from a stable IP. 198 teams * 4.6s ≈ 15 min/run.
 const TIMEOUT_MS  = 15000;
 const RETRIES     = 2;            // per-tag cap — after this many 429s we skip the tag
                                   // and move on (retried next hourly run from a new IP).

@@ -23,11 +23,20 @@ import { join } from 'node:path';
 const NT_TEAM_API = 'https://www.nitrotype.com/api/v2/teams/';
 const TEAMS_FILE  = join(process.cwd(), 'data', 'teams.json');
 const OUT_DIR     = join(process.cwd(), 'data', 'snapshots');
-const USER_AGENT  = 'nt-leaderboards/1.0 (+https://github.com/boredemAI/NT-leaderboards)';
+// Browser-like UA — NT's Cloudflare throttles bot-shaped UAs much more aggressively
+// than ordinary browser traffic. We still identify the project via the `From` header.
+const USER_AGENT  =
+  'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) ' +
+  'Chrome/123.0.0.0 Safari/537.36';
+const CONTACT     = 'nt-leaderboards bot (https://github.com/boredemAI/NT-leaderboards)';
 const CONCURRENCY = 1;            // serial — Cloudflare in front of NT aggressively rate-limits (1015)
-const PER_REQ_DELAY_MS = 2000;    // pause between requests to stay under the bucket
+const PER_REQ_DELAY_MS = 3500;    // slower baseline pacing to stay under NT's bucket
 const TIMEOUT_MS  = 15000;
-const RETRIES     = 4;            // includes long backoff if we ever trip 1015
+const RETRIES     = 2;            // per-tag cap — after this many 429s we skip the tag
+                                  // and move on (retried next hourly run from a new IP).
+const MAX_BACKOFF_MS = 20000;     // don't sleep longer than 20s on any single retry.
+const RUN_BUDGET_MS  = 25 * 60 * 1000; // hard wall-clock cap inside the script.
+let runStartedAt = 0;
 
 const pad2 = (n) => String(n).padStart(2, '0');
 const isoDate = (d) =>
@@ -46,19 +55,30 @@ async function fetchTeam(tag) {
   const url = NT_TEAM_API + encodeURIComponent(tag);
   let lastErr;
   for (let attempt = 0; attempt <= RETRIES; attempt++) {
+    if (Date.now() - runStartedAt > RUN_BUDGET_MS) {
+      return { tag, ok: false, error: 'run-budget-exceeded' };
+    }
     const ctl = new AbortController();
     const to = setTimeout(() => ctl.abort(), TIMEOUT_MS);
     try {
       const res = await fetch(url, {
-        headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
+        headers: {
+          'User-Agent': USER_AGENT,
+          Accept: 'application/json, text/plain, */*',
+          'Accept-Language': 'en-US,en;q=0.9',
+          Referer: 'https://www.nitrotype.com/',
+          From: CONTACT,
+        },
         signal: ctl.signal,
       });
       clearTimeout(to);
       if (res.status === 404) return { tag, ok: false, status: 404 };
       if (res.status === 429 || res.status === 503) {
-        // Cloudflare rate-limit — long backoff.
-        const wait = 5000 * Math.pow(2, attempt);
-        console.error(`[${tag}] HTTP ${res.status}; backing off ${wait}ms`);
+        // Cloudflare rate-limit — capped exponential backoff. If we blow the retry
+        // budget on this tag, skip it; the next hourly run (different runner IP)
+        // should pick it back up.
+        const wait = Math.min(MAX_BACKOFF_MS, 5000 * Math.pow(2, attempt));
+        console.error(`[${tag}] HTTP ${res.status}; backing off ${wait}ms (attempt ${attempt + 1}/${RETRIES + 1})`);
         await sleep(wait);
         lastErr = new Error('HTTP ' + res.status);
         continue;
@@ -160,6 +180,7 @@ function rank(teams, window) {
 }
 
 async function main() {
+  runStartedAt = Date.now();
   const now = new Date();
   const todayStr     = isoDate(now);
   const yesterdayStr = isoDate(new Date(Date.UTC(

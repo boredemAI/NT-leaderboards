@@ -256,6 +256,170 @@
     text-transform: uppercase;
   }
 
+  /* REQUEST BUTTON + MODAL */
+  .btn-request {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent);
+    color: #fff;
+    border: 1px solid var(--accent);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 11px 18px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.15s, transform 0.05s;
+  }
+  .btn-request:hover { background: #d94c35; border-color: #d94c35; }
+  .btn-request:active { transform: translateY(1px); }
+
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+  }
+  .modal-backdrop.open { display: flex; }
+
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    width: 100%;
+    max-width: 440px;
+    padding: 28px;
+    position: relative;
+  }
+  .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 6px 10px;
+  }
+  .modal-close:hover { color: #fff; }
+  .modal h2 {
+    font-family: var(--display);
+    font-size: 26px;
+    letter-spacing: 3px;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .modal h2 .accent { color: var(--accent); }
+  .modal p {
+    font-family: var(--body);
+    font-size: 14px;
+    color: var(--muted-2);
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+  .modal label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .modal input[type="text"] {
+    width: 100%;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 16px;
+    letter-spacing: 3px;
+    padding: 12px 14px;
+    outline: none;
+    text-transform: uppercase;
+    border-radius: 2px;
+  }
+  .modal input[type="text"]:focus { border-color: var(--accent); }
+  .modal-hint {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-top: 6px;
+  }
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: flex-end;
+  }
+  .btn {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 11px 18px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--muted-2);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { color: #fff; border-color: var(--muted-2); }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: 1px solid var(--accent);
+  }
+  .btn-primary:hover { background: #d94c35; border-color: #d94c35; }
+  .btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .modal-status {
+    margin-top: 14px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+    padding: 10px 12px;
+    border-radius: 2px;
+    display: none;
+  }
+  .modal-status.show { display: block; }
+  .modal-status.ok {
+    color: #7ed06e;
+    background: rgba(126,208,110,0.08);
+    border: 1px solid rgba(126,208,110,0.25);
+  }
+  .modal-status.err {
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+  }
+  .spinner {
+    display: inline-block;
+    width: 12px; height: 12px;
+    border: 2px solid rgba(255,255,255,0.25);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
   .meta-line {
     font-family: var(--mono);
     font-size: 11px;
@@ -438,6 +602,27 @@
       Highlight
       <input id="highlight" type="text" placeholder="TAG" maxlength="10" autocomplete="off"/>
     </label>
+    <button class="btn-request" id="openRequest" type="button" aria-haspopup="dialog">
+      + Request Team
+    </button>
+  </div>
+
+  <div class="modal-backdrop" id="requestModal" role="dialog" aria-modal="true" aria-labelledby="requestTitle">
+    <div class="modal">
+      <button class="modal-close" id="closeRequest" type="button" aria-label="Close">&times;</button>
+      <h2 id="requestTitle"><span class="accent">REQUEST</span> A TEAM</h2>
+      <p>Missing a team? Paste its Nitro Type tag below. Once validated, it'll be added to the tracked list and appear in the next daily leaderboard update.</p>
+      <form id="requestForm" novalidate>
+        <label for="requestTag">Team tag</label>
+        <input id="requestTag" name="tag" type="text" placeholder="e.g. NTPD1" maxlength="12" autocomplete="off" required/>
+        <div class="modal-hint">From the team URL: nitrotype.com/team/<strong>&lt;TAG&gt;</strong></div>
+        <div class="modal-status" id="requestStatus" role="status" aria-live="polite"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="cancelRequest">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="submitRequest">Submit</button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <div class="meta-line" id="meta"></div>
@@ -667,6 +852,81 @@
       state.query = e.target.value || '';
       render();
     }, 120);
+  });
+
+  // Request-team modal
+  const $openRequest   = document.getElementById('openRequest');
+  const $closeRequest  = document.getElementById('closeRequest');
+  const $cancelRequest = document.getElementById('cancelRequest');
+  const $requestModal  = document.getElementById('requestModal');
+  const $requestForm   = document.getElementById('requestForm');
+  const $requestTag    = document.getElementById('requestTag');
+  const $requestStatus = document.getElementById('requestStatus');
+  const $submitRequest = document.getElementById('submitRequest');
+
+  function openRequestModal() {
+    $requestStatus.className = 'modal-status';
+    $requestStatus.textContent = '';
+    $requestTag.value = '';
+    $requestModal.classList.add('open');
+    setTimeout(() => $requestTag.focus(), 50);
+  }
+  function closeRequestModal() {
+    $requestModal.classList.remove('open');
+  }
+
+  $openRequest.addEventListener('click', openRequestModal);
+  $closeRequest.addEventListener('click', closeRequestModal);
+  $cancelRequest.addEventListener('click', closeRequestModal);
+  $requestModal.addEventListener('click', (e) => {
+    if (e.target === $requestModal) closeRequestModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && $requestModal.classList.contains('open')) closeRequestModal();
+  });
+
+  $requestTag.addEventListener('input', (e) => {
+    const cleaned = sanitizeTag(e.target.value);
+    if (cleaned !== e.target.value) e.target.value = cleaned;
+  });
+
+  function setStatus(msg, kind) {
+    $requestStatus.className = 'modal-status show ' + (kind || '');
+    $requestStatus.innerHTML = msg;
+  }
+
+  $requestForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const tag = sanitizeTag($requestTag.value);
+    if (!tag || tag.length < 2) {
+      setStatus('Please enter a valid team tag (2-10 characters, letters/numbers).', 'err');
+      return;
+    }
+
+    $submitRequest.disabled = true;
+    setStatus('<span class="spinner"></span>Validating and submitting…', '');
+
+    try {
+      const res = await fetch('/api/request-team', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ tag }),
+      });
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setStatus(escapeHtml(body.error || ('Request failed: HTTP ' + res.status)), 'err');
+        return;
+      }
+      if (body.alreadyTracked) {
+        setStatus('<strong>' + escapeHtml(tag) + '</strong> is already tracked \u2014 it\u2019ll appear after the next snapshot.', 'ok');
+      } else {
+        setStatus('Added <strong>' + escapeHtml(tag) + '</strong>. It\u2019ll show up in the next daily leaderboard update.', 'ok');
+      }
+    } catch (err) {
+      setStatus('Network error: ' + escapeHtml(String(err.message || err)), 'err');
+    } finally {
+      $submitRequest.disabled = false;
+    }
   });
 
   // Highlight (debounced, persisted)

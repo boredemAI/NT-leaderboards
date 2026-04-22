@@ -420,7 +420,7 @@
 <section class="hero">
   <div class="hero-eyebrow">Nitro Type · Team Rankings</div>
   <h1 class="hero-title"><span class="accent">TEAM</span> LEADERBOARDS</h1>
-  <p class="hero-sub">Daily race counts and all-time race totals for every tracked Nitro Type team. Refreshed every 5 minutes straight from the data source.</p>
+  <p class="hero-sub">Daily (last 24 hours) and all-time race totals for every tracked Nitro Type team. Pulled straight from <code>nitrotype.com/api/v2/teams/&lt;TAG&gt;</code>, snapshotted once per day.</p>
   <div class="updated" id="updated"><span class="dot"></span> Loading…</div>
 </section>
 
@@ -451,7 +451,7 @@
           <th class="sortable num sort-desc" data-key="races">Races</th>
           <th class="sortable num hide-sm" data-key="wpm">WPM</th>
           <th class="sortable num hide-sm" data-key="accuracy">Acc</th>
-          <th class="sortable num hide-sm" data-key="points">Points</th>
+          <th class="sortable num hide-sm" data-key="members">Members</th>
           <th class="hide-sm">Tier</th>
         </tr>
       </thead>
@@ -463,8 +463,8 @@
 </main>
 
 <footer>
-  Data via <a href="https://ntstartrack.org" target="_blank" rel="noopener">ntstartrack.org</a> &amp; <a href="https://www.nitrotype.com" target="_blank" rel="noopener">Nitro Type</a> ·
-  <a href="https://github.com/boredemAI/nt-leaderboards" target="_blank" rel="noopener">Source on GitHub</a>
+  Data via <a href="https://www.nitrotype.com" target="_blank" rel="noopener">Nitro Type&rsquo;s public team API</a> (nitrotype.com/api/v2/teams/&lt;TAG&gt;) ·
+  <a href="https://github.com/boredemAI/NT-leaderboards" target="_blank" rel="noopener">Source on GitHub</a>
 </footer>
 
 <script>
@@ -501,14 +501,9 @@
   }
 
   function fmtInt(n)    { return Number(n).toLocaleString('en-US'); }
-  function fmtWpm(n)    { return n ? n.toFixed(1) : '—'; }
-  function fmtAcc(n)    { return n ? (n * 100).toFixed(1) + '%' : '—'; }
-  function fmtPoints(n) {
-    if (!n) return '—';
-    if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
-    if (n >= 1e3) return (n / 1e3).toFixed(1) + 'k';
-    return Math.round(n).toLocaleString('en-US');
-  }
+  function fmtWpm(n)    { return n ? Number(n).toFixed(1) : '—'; }
+  function fmtAcc(n)    { return n ? Number(n).toFixed(1) + '%' : '—'; }
+  function fmtMembers(n) { return n ? Number(n).toLocaleString('en-US') : '—'; }
   function fmtAge(ms) {
     const s = Math.max(0, Math.floor((Date.now() - ms) / 1000));
     if (s < 60) return s + 's ago';
@@ -518,8 +513,10 @@
 
   function renderUpdated() {
     if (!state.data) return;
+    const t = state.data.generatedAt;
+    const ms = typeof t === 'number' ? t : Date.parse(t);
     $updated.innerHTML =
-      '<span class="dot"></span> Updated ' + fmtAge(state.data.generatedAt);
+      '<span class="dot"></span> Updated ' + (isFinite(ms) ? fmtAge(ms) : 'recently');
   }
 
   function render() {
@@ -583,7 +580,7 @@
         '<td class="num primary">' + fmtInt(t.races) + '</td>' +
         '<td class="num hide-sm">' + fmtWpm(t.wpm) + '</td>' +
         '<td class="num hide-sm">' + fmtAcc(t.accuracy) + '</td>' +
-        '<td class="num hide-sm">' + fmtPoints(t.points) + '</td>' +
+        '<td class="num hide-sm">' + fmtMembers(t.members) + '</td>' +
         '<td class="hide-sm"><span class="tier-pill">T' + (t.leagueTier || '—') + '</span></td>';
       frag.appendChild(tr);
     });
@@ -616,9 +613,11 @@
 
   async function load() {
     try {
-      const url = '/api/leaderboards' +
-        (state.highlight ? '?tag=' + encodeURIComponent(state.highlight) : '');
-      const res = await fetch(url, { headers: { Accept: 'application/json' } });
+      const url = '/data/snapshots/latest.json?t=' + Date.now();
+      const res = await fetch(url, {
+        headers: { Accept: 'application/json' },
+        cache: 'no-store',
+      });
       if (!res.ok) throw new Error('HTTP ' + res.status);
       state.data = await res.json();
       render();
@@ -683,9 +682,10 @@
     }, 150);
   });
 
-  // Auto-refresh
+  // Auto-refresh (snapshot file updates once/day; poll every 10 min so an
+  // on-demand workflow run picks up quickly).
   load();
-  setInterval(load, 5 * 60 * 1000);
+  setInterval(load, 10 * 60 * 1000);
   setInterval(renderUpdated, 15 * 1000);
 })();
 </script>

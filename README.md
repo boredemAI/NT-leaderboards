@@ -1,88 +1,118 @@
 # Nitro Type Team Leaderboards
 
-Live leaderboards of every tracked [Nitro Type](https://www.nitrotype.com) team, ranked two ways:
+Leaderboards for tracked [Nitro Type](https://www.nitrotype.com) teams, ranked two ways:
 
-- **Daily Races** — races completed in the current UTC day
-- **Most Ever** — cumulative races since the tracker started
+- **Daily Races** — team races over the rolling last 24 hours (per NT team stats)
+- **Most Ever** — cumulative team race count (per NT team stats)
 
-Deployed as a static Cloudflare Pages site with one Pages Function; a daily GitHub Actions cron commits a historical JSON snapshot to the repo.
+Pure static site. All data comes **strictly** from
+`https://www.nitrotype.com/api/v2/teams/<TAG>` — one public endpoint, one team
+at a time. A GitHub Actions cron hits that endpoint for every tag in
+`data/teams.json` and commits an aggregated snapshot back to the repo. The site
+loads that static JSON at page load. No Cloudflare Function, no third-party
+backend, no scraping.
 
 ## Structure
 
 ```
 nt-leaderboards/
 ├── index.html                       ← leaderboards page (static)
-├── functions/
-│   └── api/
-│       └── leaderboards.js          ← Cloudflare Pages Function → /api/leaderboards
+├── data/
+│   ├── teams.json                   ← curated list of NT team tags (seed)
+│   └── snapshots/
+│       ├── latest.json              ← served by the site
+│       └── <YYYY-MM-DD>.json        ← daily archive
 ├── scripts/
-│   └── snapshot-leaderboards.mjs    ← daily snapshot generator (Node 18+, no deps)
+│   └── snapshot-leaderboards.mjs    ← Node 18+ snapshot generator (no deps)
 ├── .github/workflows/
-│   └── snapshot-leaderboards.yml    ← daily cron at 00:15 UTC
-├── data/snapshots/                  ← committed historical snapshots
+│   └── snapshot-leaderboards.yml    ← cron @ 00:15 UTC daily
 └── README.md
 ```
 
 ## How it works
 
-- `index.html` fetches `/api/leaderboards` on load and renders two tabbed tables.
-  Columns are sortable, teams are searchable, and any team tag entered in the
-  **Highlight** box (or passed via `?tag=EXO`) gets the accent-colored row.
-- `functions/api/leaderboards.js` is a Cloudflare Pages Function that pulls two
-  windows from [ntstartrack.org](https://ntstartrack.org)'s public
-  `team-leaderboard` endpoint (current UTC day + a wide 2020→now window), sorts
-  them by `races`, and returns a unified JSON payload. The final response is
-  edge-cached for 5 minutes and each upstream window is independently cached
-  for 5 minutes via `caches.default`.
-- `scripts/snapshot-leaderboards.mjs` is a standalone Node script that does the
-  same thing, but for yesterday's closed UTC day, and writes
-  `data/snapshots/<YYYY-MM-DD>.json` plus `data/snapshots/latest.json`.
-- `.github/workflows/snapshot-leaderboards.yml` runs that script every day at
-  00:15 UTC and commits the new file with `contents: write` permission.
+- `index.html` loads, `fetch('/data/snapshots/latest.json')`, renders two
+  tabbed tables. Columns are sortable, teams are searchable, and any team tag
+  entered in the **Highlight** box (or passed via `?tag=EXO`) gets the
+  accent-colored row. State persists via `localStorage['ntlb:highlight']`.
+- `scripts/snapshot-leaderboards.mjs` loads `data/teams.json`, fetches each
+  `https://www.nitrotype.com/api/v2/teams/<TAG>` (serial, 2s paced to stay
+  under NT's Cloudflare rate-limit), normalizes each team's stats, sorts by
+  races for each window, and writes:
+  - `data/snapshots/latest.json` (always overwritten)
+  - `data/snapshots/<yesterday-UTC>.json` (daily archive)
+- `.github/workflows/snapshot-leaderboards.yml` runs the script daily at
+  00:15 UTC and commits the updated files with `contents: write`.
+
+## Data fields
+
+Each team in a leaderboard is normalized to:
+
+```json
+{
+  "rank":       1,
+  "tag":        "EXO",
+  "name":       "Exonerators",
+  "tagColor":   "f15b40",
+  "members":    10,
+  "leagueTier": 1,
+  "races":      6995,
+  "wpm":        87.4,
+  "accuracy":   94.8
+}
+```
+
+`races`, `wpm`, and `accuracy` are derived from NT's per-team `stats` array
+(`board: "daily"` or `board: "alltime"`):
+- `races` = `stats[i].played`
+- `wpm`   = `(typed / 5) / (secs / 60)`
+- `accuracy` = `(1 - errs / typed) * 100`
+
+## Team list (`data/teams.json`)
+
+To add or remove a team from the leaderboards, edit `data/teams.json`:
+
+```json
+{
+  "_comment": "…",
+  "tags": ["EXO", "PR2W", "NTPD1", "..."]
+}
+```
+
+Invalid or disbanded tags are skipped gracefully at snapshot time and logged
+under `failures` in `latest.json`.
 
 ## Deploy (Cloudflare Pages)
 
-1. Sign in at https://dash.cloudflare.com → **Workers & Pages** → **Create** →
-   **Pages** → **Connect to Git** and select this repo.
+1. https://dash.cloudflare.com → **Workers & Pages** → **Create** → **Pages**
+   → **Connect to Git** and select this repo.
 2. Project name: `nt-leaderboards` (determines the `*.pages.dev` subdomain).
-3. Build settings: no build command, no output directory — Cloudflare Pages
-   will serve the repo root as-is and auto-detect `functions/`.
-4. Deploy. You'll get a URL like `https://nt-leaderboards.pages.dev`.
+3. Build command: *(empty)*. Build output directory: `/` (repo root).
+4. Deploy. `https://<project>.pages.dev/` serves `index.html`; the JSON is
+   served straight from `/data/snapshots/latest.json`.
 
-## Verify
-
-- Homepage: `https://<project>.pages.dev/`
-- API:      `https://<project>.pages.dev/api/leaderboards`
-
-  Returns JSON shaped like:
-  ```json
-  {
-    "generatedAt": 1776884583000,
-    "highlight": null,
-    "daily":   { "window": {...}, "teams": [ { "rank": 1, "tag": "ZH", "name": "Zero Hour", "races": 5440, ... } ] },
-    "allTime": { "window": {...}, "teams": [ ... ] }
-  }
-  ```
-
-## Snapshots
-
-Each snapshot file under `data/snapshots/` is a full capture of both
-leaderboards at the time the cron fired, so over time the repo accumulates a
-per-day history you can diff, chart, or reimport. `latest.json` always points
-at the most recent snapshot.
+Any static host works (GitHub Pages, Netlify, Vercel, plain S3) — there is no
+server code.
 
 ## Local dev
 
-No build step. To preview the static page, just open `index.html` in a browser
-(the fetch will fail because `/api/leaderboards` isn't there — pass the repo
-through `wrangler pages dev .` if you need the function too:
+No build step. Just open `index.html` with any static server, e.g.:
 
 ```
-npx wrangler@latest pages dev .
+python3 -m http.server 8000
 ```
+
+Then visit http://localhost:8000/. To refresh the snapshot yourself:
+
+```
+node scripts/snapshot-leaderboards.mjs
+```
+
+This takes a few minutes end-to-end because the script deliberately paces
+requests to stay polite to NT's Cloudflare bucket.
 
 ## Credit
 
-Aggregate team data comes from the excellent community tracker
-[ntstartrack.org](https://ntstartrack.org). Nitro Type itself is at
-[nitrotype.com](https://www.nitrotype.com).
+All team data comes from [nitrotype.com](https://www.nitrotype.com)'s own
+`/api/v2/teams/<TAG>` endpoint. This project does not scrape any third-party
+tracker.

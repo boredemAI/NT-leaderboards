@@ -18,6 +18,13 @@ const NT_API = 'https://www.nitrotype.com/api/v2/teams/';
 const TEAMS_PATH = 'data/teams.json';
 const MAX_COMMIT_RETRIES = 3;
 
+// Encode each path segment but preserve the '/' separators GitHub's
+// Contents API expects (encodeURIComponent alone would turn 'data/teams.json'
+// into 'data%2Fteams.json' and yield a 404).
+function encodePath(p) {
+  return String(p).split('/').map(encodeURIComponent).join('/');
+}
+
 function json(body, status = 200, extra = {}) {
   return new Response(JSON.stringify(body), {
     status,
@@ -76,7 +83,7 @@ async function ghFetch(env, path, init = {}) {
 async function readTeamsFile(env, branch) {
   const res = await ghFetch(
     env,
-    `contents/${encodeURIComponent(TEAMS_PATH)}?ref=${encodeURIComponent(branch)}`
+    `contents/${encodePath(TEAMS_PATH)}?ref=${encodeURIComponent(branch)}`
   );
   if (!res.ok) {
     const text = await res.text().catch(() => '');
@@ -107,7 +114,7 @@ async function commitTeamsFile(env, branch, updatedJsonText, baseSha, tag) {
     sha: baseSha,
     branch,
   };
-  const res = await ghFetch(env, `contents/${encodeURIComponent(TEAMS_PATH)}`, {
+  const res = await ghFetch(env, `contents/${encodePath(TEAMS_PATH)}`, {
     method: 'PUT',
     body: JSON.stringify(payload),
   });

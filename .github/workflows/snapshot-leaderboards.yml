@@ -5,8 +5,11 @@ name: Snapshot team leaderboards
 #   - data/snapshots/latest.json            (served by the site)
 #   - data/snapshots/<yesterday-utc>.json   (dated archive, written once/day)
 #
-# Runs hourly (at :00 UTC). Full crawl is ~7 minutes (197 teams, 2s paced),
-# well under the 1-hour window.
+# Runs hourly (at :00 UTC). Full crawl is ~12 min at 3.5s pacing. The job has
+# a 45 min ceiling so that if NT's Cloudflare starts 429'ing our runner IP
+# hard, the run can still exhaust its internal per-tag budget and commit a
+# partial snapshot (any teams that kept 429ing land in `failures` in
+# latest.json and retry the next hour from a different runner IP).
 
 on:
   schedule:
@@ -23,7 +26,7 @@ concurrency:
 jobs:
   snapshot:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - name: Checkout
         uses: actions/checkout@v4

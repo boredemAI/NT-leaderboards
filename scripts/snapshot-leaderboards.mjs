@@ -220,7 +220,7 @@ async function main() {
   if (archiveWritten) console.error('Wrote', archivePath);
   else console.error('Skipped archive (already exists):', archivePath);
   console.error(
-    `Teams — ok:${ok} fail:${fail} | daily leaderboard:${snapshot.daily.teams.length} | all-time:${snapshot.allTime.teams.length}`,
+    `Teams — ok:${ok} fail:${failures.length} | daily leaderboard:${snapshot.daily.teams.length} | all-time:${snapshot.allTime.teams.length}`,
   );
 }
 

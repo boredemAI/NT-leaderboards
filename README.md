@@ -32,7 +32,7 @@ nt-leaderboards/
 │   └── request-team.js              ← Cloudflare Pages Function:
 │                                       validates + commits new tag
 ├── .github/workflows/
-│   └── snapshot-leaderboards.yml    ← cron @ :00 every hour (UTC)
+│   └── snapshot-leaderboards.yml    ← cron @ :37 every hour (UTC)
 └── README.md
 ```
 
@@ -43,14 +43,16 @@ nt-leaderboards/
   entered in the **Highlight** box (or passed via `?tag=EXO`) gets the
   accent-colored row. State persists via `localStorage['ntlb:highlight']`.
 - `scripts/snapshot-leaderboards.mjs` loads `data/teams.json`, fetches each
-  `https://www.nitrotype.com/api/v2/teams/<TAG>` (serial, 2s paced to stay
-  under NT's Cloudflare rate-limit), normalizes each team's stats, sorts by
-  races for each window, and writes:
+  `https://www.nitrotype.com/api/v2/teams/<TAG>` (serial, 4.6s paced = ~13
+  teams/min — the rate NT's team tells other long-running consumers to stay
+  under), normalizes each team's stats, sorts by races for each window, and
+  writes:
   - `data/snapshots/latest.json` (always overwritten)
   - `data/snapshots/<yesterday-UTC>.json` (closed-day archive, written once
     per UTC day; subsequent same-day runs skip it to avoid git churn)
 - `.github/workflows/snapshot-leaderboards.yml` runs the script every hour
-  (at :00 UTC) and commits the updated files with `contents: write`.
+  at :37 UTC (off the top-of-hour load spike that frequently delays/drops
+  scheduled runs on GitHub Actions) and commits with `contents: write`.
 
 ## Data fields
 
@@ -104,7 +106,7 @@ Flow:
    update with message `feat(data): request adds team <TAG>` (retries up to
    3 times on SHA conflict).
 5. Responds `{ tag, name, alreadyTracked }`. The next scheduled snapshot run
-   (`.github/workflows/snapshot-leaderboards.yml`, hourly at :00 UTC)
+   (`.github/workflows/snapshot-leaderboards.yml`, hourly at :37 UTC)
    includes the newly added tag automatically.
 
 ## Deploy (Cloudflare Pages)

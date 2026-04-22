@@ -5,16 +5,22 @@ name: Snapshot team leaderboards
 #   - data/snapshots/latest.json            (served by the site)
 #   - data/snapshots/<yesterday-utc>.json   (dated archive, written once/day)
 #
-# Runs hourly (at :00 UTC). Full crawl is ~15 min at 4.6s pacing (matches
+# Runs hourly at :37 UTC. Full crawl is ~15 min at 4.6s pacing (matches
 # Starlight's "clean" 13 teams/min rate on a stable IP). The job has
 # a 45 min ceiling so that if NT's Cloudflare starts 429'ing our runner IP
 # hard, the run can still exhaust its internal per-tag budget and commit a
 # partial snapshot (any teams that kept 429ing land in `failures` in
 # latest.json and retry the next hour from a different runner IP).
+#
+# Why :37 and not :00? GitHub's own docs warn that scheduled workflows can be
+# delayed or silently dropped during high-load periods, and every :00 of the
+# hour is the worst moment on the platform because that's when every cron in
+# the world fires at once. An off-peak minute (37 is prime, avoids :00/:15/:30/:45)
+# significantly improves the odds our run actually gets dispatched on time.
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '37 * * * *'
   workflow_dispatch:
 
 permissions:

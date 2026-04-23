@@ -54,13 +54,20 @@ async function verifyTurnstile(secret, token, ip) {
   return !!body.success;
 }
 
+// Browser-shaped UA + headers: NT's Cloudflare throttles obvious-bot UAs much
+// more aggressively (seen as 400/1015/429). The snapshot script already uses
+// this pattern (see scripts/snapshot-leaderboards.mjs). We still identify the
+// project via the `From` header so NT can contact us if needed.
 async function fetchNtTeam(tag, signal) {
   const url = NT_API + encodeURIComponent(tag);
   const res = await fetch(url, {
     headers: {
-      Accept: 'application/json',
+      Accept: 'application/json,text/plain,*/*',
+      'Accept-Language': 'en-US,en;q=0.9',
       'User-Agent':
-        'nt-leaderboards-request-team/1.0 (+https://github.com/boredemAI/NT-leaderboards)',
+        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+      Referer: 'https://www.nitrotype.com/',
+      From: 'nt-leaderboards bot (https://github.com/boredemAI/NT-leaderboards)',
     },
     signal,
   });

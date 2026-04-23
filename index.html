@@ -917,10 +917,13 @@
         setStatus(escapeHtml(body.error || ('Request failed: HTTP ' + res.status)), 'err');
         return;
       }
+      const canonical = escapeHtml(body.tag || tag);
       if (body.alreadyTracked) {
-        setStatus('<strong>' + escapeHtml(tag) + '</strong> is already tracked \u2014 it\u2019ll appear on the next hourly refresh.', 'ok');
+        setStatus('<strong>' + canonical + '</strong> is already tracked \u2014 it\u2019ll appear on the next hourly refresh.', 'ok');
+      } else if (body.verified === false) {
+        setStatus('Added <strong>' + canonical + '</strong>. Nitro Type rate-limited our verification, so we\u2019ll confirm it on the next hourly snapshot. If the tag is invalid it just won\u2019t appear.', 'ok');
       } else {
-        setStatus('Added <strong>' + escapeHtml(tag) + '</strong>. It\u2019ll show up within the next hour.', 'ok');
+        setStatus('Added <strong>' + canonical + '</strong>. It\u2019ll show up within the next hour.', 'ok');
       }
     } catch (err) {
       setStatus('Network error: ' + escapeHtml(String(err.message || err)), 'err');

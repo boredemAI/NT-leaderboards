@@ -163,35 +163,36 @@ export async function onRequestPost(context) {
     if (!ok) return json({ error: 'Captcha verification failed.' }, 403);
   }
 
-  // Validate the team actually exists on Nitro Type.
-  let ntBody;
+  // Soft-validate against Nitro Type. Only reject on an explicit 404 (clear
+  // "no such team"). On anything else \u2014 NT's Cloudflare 400'ing us, 429
+  // throttling, 5xx, or outright network errors \u2014 fall through and commit
+  // the tag anyway. The next scheduled snapshot run will confirm whether the
+  // tag is real; invalid ones simply land in `failures` and never surface on
+  // the leaderboard. This keeps user submissions unblocked by NT's flaky
+  // Cloudflare-to-Cloudflare behavior.
+  let info = null;
+  let verified = false;
   try {
     const res = await fetchNtTeam(tag);
     if (res.status === 404) {
       return json({ error: `Nitro Type has no team with tag "${tag}".` }, 404);
     }
-    if (!res.ok) {
-      return json(
-        { error: `Couldn\u2019t reach Nitro Type to verify tag (HTTP ${res.status}). Try again in a minute.` },
-        502
-      );
+    if (res.ok) {
+      const ntBody = await res.json().catch(() => null);
+      const st = ntBody && ntBody.status;
+      const maybeInfo = ntBody && ntBody.results && ntBody.results.info;
+      if (st === 'OK' && maybeInfo && maybeInfo.tag) {
+        info = maybeInfo;
+        verified = true;
+      }
     }
-    ntBody = await res.json().catch(() => null);
-  } catch (err) {
-    return json(
-      { error: `Network error contacting Nitro Type: ${err.message || err}` },
-      502
-    );
+  } catch (_err) {
+    // Network error talking to NT \u2014 fall through to unverified commit.
   }
 
-  const status = ntBody && ntBody.status;
-  const info = ntBody && ntBody.results && ntBody.results.info;
-  if (status !== 'OK' || !info || !info.tag) {
-    return json({ error: `Nitro Type didn\u2019t return a valid team for "${tag}".` }, 404);
-  }
-  const canonicalTag = sanitizeTag(info.tag);
-  if (!canonicalTag) {
-    return json({ error: `Nitro Type returned an invalid tag for "${tag}".` }, 502);
+  const canonicalTag = verified ? sanitizeTag(info.tag) : tag;
+  if (!canonicalTag || canonicalTag.length < 2) {
+    return json({ error: `Invalid tag "${tag}".` }, 400);
   }
 
   // Append to data/teams.json via GitHub API, with retry on conflict.
@@ -210,8 +211,9 @@ export async function onRequestPost(context) {
     if (existingUpper.includes(canonicalTag)) {
       return json({
         tag: canonicalTag,
-        name: info.name || null,
+        name: (info && info.name) || null,
         alreadyTracked: true,
+        verified,
       });
     }
 
@@ -233,8 +235,9 @@ export async function onRequestPost(context) {
     if (commitRes.ok) {
       return json({
         tag: canonicalTag,
-        name: info.name || null,
+        name: (info && info.name) || null,
         alreadyTracked: false,
+        verified,
       });
     }
     if (commitRes.status === 409 || commitRes.status === 422) {

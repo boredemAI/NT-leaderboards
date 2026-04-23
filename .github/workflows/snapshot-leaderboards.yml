@@ -47,6 +47,13 @@ jobs:
         run: node scripts/snapshot-leaderboards.mjs
 
       - name: Commit snapshot
+        # Rebase-then-push-with-retry. A full crawl takes ~15 min and `main`
+        # can move while we're running (other workflow runs, user-submitted
+        # team adds via /api/request-team, manual PRs). Plain `git push`
+        # silently drops the run's work on non-fast-forward. Rebase our
+        # snapshot commit onto fresh origin/main before pushing, and retry
+        # a couple times if we race with yet another push between rebase
+        # and our own push.
         run: |
           if [ -z "$(git status --porcelain data/snapshots)" ]; then
             echo "No changes to commit."
@@ -56,4 +63,15 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/snapshots
           git commit -m "chore(data): leaderboard snapshot $(date -u +%Y-%m-%d)"
-          git push
+          for i in 1 2 3 4 5; do
+            git fetch origin "${GITHUB_REF_NAME:-main}"
+            git rebase "origin/${GITHUB_REF_NAME:-main}" || { git rebase --abort; exit 1; }
+            if git push origin "HEAD:${GITHUB_REF_NAME:-main}"; then
+              echo "Pushed on attempt $i."
+              exit 0
+            fi
+            echo "Push attempt $i rejected (likely another commit landed); retrying..."
+            sleep $((i * 2))
+          done
+          echo "::error::Failed to push snapshot after 5 attempts."
+          exit 1

@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-08-20T15:07:18.824Z",
+  "generatedAt": "2026-08-20T16:01:50.237Z",
   "date": "2026-08-20",
   "source": "https://www.nitrotype.com/api/v2/teams/<TAG>",
   "tagsFetched": 202,
-  "ok": 113,
-  "fail": 89,
+  "ok": 127,
+  "fail": 75,
   "failures": [
     {
       "tag": "01T",
@@ -16,6 +16,10 @@
     },
     {
       "tag": "2CT",
+      "reason": "HTTP 400"
+    },
+    {
+      "tag": "ACN",
       "reason": "HTTP 400"
     },
     {
@@ -108,159 +112,99 @@
     },
     {
       "tag": "SL1DE",
-      "reason": "HTTP 429"
+      "reason": "HTTP 400"
     },
     {
       "tag": "SMASH0",
-      "reason": "HTTP 429"
-    },
-    {
-      "tag": "SMASHO",
-      "reason": "HTTP 429"
-    },
-    {
-      "tag": "SN",
-      "reason": "HTTP 429"
+      "reason": "HTTP 400"
     },
     {
       "tag": "SNT",
-      "reason": "HTTP 429"
-    },
-    {
-      "tag": "SPRM3",
-      "reason": "HTTP 429"
-    },
-    {
-      "tag": "SSH",
-      "reason": "HTTP 429"
-    },
-    {
-      "tag": "SSHR",
-      "reason": "HTTP 429"
-    },
-    {
-      "tag": "SURRON",
-      "reason": "HTTP 429"
-    },
-    {
-      "tag": "SVRN",
-      "reason": "HTTP 429"
-    },
-    {
-      "tag": "T3X5",
-      "reason": "HTTP 429"
-    },
-    {
-      "tag": "TALK",
-      "reason": "HTTP 429"
-    },
-    {
-      "tag": "TBZ",
-      "reason": "HTTP 429"
+      "reason": "HTTP 400"
     },
     {
       "tag": "TBZ_old",
-      "reason": "HTTP 429"
-    },
-    {
-      "tag": "TCHR",
-      "reason": "HTTP 429"
-    },
-    {
-      "tag": "TESM",
-      "reason": "HTTP 429"
+      "reason": "HTTP 400"
     },
     {
       "tag": "THERM0",
-      "reason": "HTTP 429"
-    },
-    {
-      "tag": "THISKS",
-      "reason": "HTTP 429"
+      "reason": "HTTP 400"
     },
     {
       "tag": "TIR3D",
-      "reason": "HTTP 429"
-    },
-    {
-      "tag": "TK",
-      "reason": "HTTP 429"
+      "reason": "HTTP 400"
     },
     {
       "tag": "TMW",
-      "reason": "run-budget-exceeded"
-    },
-    {
-      "tag": "TOPGOD",
-      "reason": "run-budget-exceeded"
+      "reason": "HTTP 400"
     },
     {
       "tag": "TTP1",
-      "reason": "run-budget-exceeded"
+      "reason": "HTTP 429"
     },
     {
       "tag": "TTT0",
-      "reason": "run-budget-exceeded"
+      "reason": "HTTP 429"
     },
     {
       "tag": "TVX",
-      "reason": "run-budget-exceeded"
+      "reason": "HTTP 429"
     },
     {
       "tag": "TYT",
-      "reason": "run-budget-exceeded"
+      "reason": "HTTP 429"
     },
     {
       "tag": "UBT",
-      "reason": "run-budget-exceeded"
+      "reason": "HTTP 429"
     },
     {
       "tag": "UDC",
-      "reason": "run-budget-exceeded"
+      "reason": "HTTP 429"
     },
     {
       "tag": "UE",
-      "reason": "run-budget-exceeded"
+      "reason": "HTTP 429"
     },
     {
       "tag": "UMBER",
-      "reason": "run-budget-exceeded"
+      "reason": "HTTP 429"
     },
     {
       "tag": "V0",
-      "reason": "run-budget-exceeded"
+      "reason": "HTTP 429"
     },
     {
       "tag": "V0_old",
-      "reason": "run-budget-exceeded"
+      "reason": "HTTP 429"
     },
     {
       "tag": "V0R7EX",
-      "reason": "run-budget-exceeded"
+      "reason": "HTTP 429"
     },
     {
       "tag": "V1C",
-      "reason": "run-budget-exceeded"
+      "reason": "HTTP 429"
     },
     {
       "tag": "VDN",
-      "reason": "run-budget-exceeded"
+      "reason": "HTTP 429"
     },
     {
       "tag": "VF",
-      "reason": "run-budget-exceeded"
+      "reason": "HTTP 429"
     },
     {
       "tag": "VF_old",
-      "reason": "run-budget-exceeded"
+      "reason": "HTTP 429"
     },
     {
       "tag": "VHR",
-      "reason": "run-budget-exceeded"
+      "reason": "HTTP 429"
     },
     {
       "tag": "VK",
-      "reason": "run-budget-exceeded"
+      "reason": "HTTP 429"
     },
     {
       "tag": "VO1DX",
@@ -370,171 +314,226 @@
     "teams": [
       {
         "rank": 1,
+        "tag": "SSH",
+        "name": "Shell  Riders",
+        "tagColor": "436fb6",
+        "members": 49,
+        "leagueTier": 13,
+        "races": 3114,
+        "wpm": 96.1,
+        "accuracy": 95.9
+      },
+      {
+        "rank": 2,
+        "tag": "TBZ",
+        "name": "TraiIblazers",
+        "tagColor": "ee1f25",
+        "members": 50,
+        "leagueTier": 12,
+        "races": 2571,
+        "wpm": 97,
+        "accuracy": 95.4
+      },
+      {
+        "rank": 3,
         "tag": "COMP5",
         "name": "C0MP5 LEGACY",
         "tagColor": "fec679",
         "members": 50,
         "leagueTier": 11,
-        "races": 2276,
-        "wpm": 83.1,
+        "races": 2387,
+        "wpm": 83.2,
         "accuracy": 91.7
       },
       {
-        "rank": 2,
+        "rank": 4,
         "tag": "NTPD1",
         "name": "Nitro Type Police",
         "tagColor": "40b8ea",
         "members": 50,
         "leagueTier": 11,
-        "races": 2001,
-        "wpm": 83.7,
+        "races": 1995,
+        "wpm": 83.6,
         "accuracy": 97.4
       },
       {
-        "rank": 3,
+        "rank": 5,
         "tag": "PR2W",
         "name": "P1nks R2 W1ld",
         "tagColor": "ea1979",
         "members": 49,
         "leagueTier": 13,
-        "races": 1573,
-        "wpm": 81.9,
-        "accuracy": 94.1
+        "races": 1656,
+        "wpm": 81.7,
+        "accuracy": 94.3
       },
       {
-        "rank": 4,
+        "rank": 6,
         "tag": "S0RC",
         "name": "Solar   Racers",
         "tagColor": "ee1f25",
         "members": 47,
         "leagueTier": 11,
-        "races": 1157,
-        "wpm": 83.7,
-        "accuracy": 92.2
+        "races": 1189,
+        "wpm": 82.7,
+        "accuracy": 92.1
       },
       {
-        "rank": 5,
+        "rank": 7,
         "tag": "EQU",
         "name": "Equilibrium",
         "tagColor": "746bb0",
         "members": 45,
         "leagueTier": 9,
-        "races": 935,
+        "races": 1016,
         "wpm": 46.1,
         "accuracy": 93.7
       },
       {
-        "rank": 6,
+        "rank": 8,
         "tag": "HYP3Z",
         "name": "-Hyp3rwave-",
         "tagColor": "5b52a3",
         "members": 50,
         "leagueTier": 11,
-        "races": 897,
-        "wpm": 53.5,
+        "races": 893,
+        "wpm": 53.6,
         "accuracy": 91.9
       },
       {
-        "rank": 7,
+        "rank": 9,
         "tag": "RFTP",
         "name": "2000 Tiger",
         "tagColor": "fcf9d8",
         "members": 41,
         "leagueTier": 13,
-        "races": 770,
-        "wpm": 94.8,
-        "accuracy": 92.9
+        "races": 871,
+        "wpm": 89.9,
+        "accuracy": 92.8
       },
       {
-        "rank": 8,
+        "rank": 10,
+        "tag": "TCHR",
+        "name": "Inculcators",
+        "tagColor": "f5eb21",
+        "members": 42,
+        "leagueTier": 11,
+        "races": 835,
+        "wpm": 71.1,
+        "accuracy": 94.9
+      },
+      {
+        "rank": 11,
         "tag": "CZBZ",
         "name": "Cr4zy Typerz",
         "tagColor": "436fb6",
         "members": 50,
         "leagueTier": 12,
-        "races": 704,
-        "wpm": 91.6,
-        "accuracy": 97.5
+        "races": 686,
+        "wpm": 91.8,
+        "accuracy": 97.6
       },
       {
-        "rank": 9,
+        "rank": 12,
         "tag": "ASN",
         "name": "Ascension Epitome",
         "tagColor": "40b8ea",
         "members": 28,
         "leagueTier": 12,
-        "races": 703,
-        "wpm": 68.7,
-        "accuracy": 97.3
+        "races": 653,
+        "wpm": 69.1,
+        "accuracy": 97.2
       },
       {
-        "rank": 10,
+        "rank": 13,
         "tag": "BN8",
         "name": "BENEVOLENCE",
         "tagColor": "ee1f25",
         "members": 50,
         "leagueTier": 11,
-        "races": 579,
-        "wpm": 64.6,
-        "accuracy": 94.7
+        "races": 564,
+        "wpm": 66.6,
+        "accuracy": 94.8
       },
       {
-        "rank": 11,
+        "rank": 14,
         "tag": "BEEHVE",
         "name": "Weekly Gold Comp",
         "tagColor": "f5eb21",
         "members": 48,
         "leagueTier": 13,
-        "races": 554,
-        "wpm": 70.5,
+        "races": 517,
+        "wpm": 71,
         "accuracy": 95.8
       },
       {
-        "rank": 12,
+        "rank": 15,
         "tag": "IPX",
         "name": "Racing To Victory",
         "tagColor": "436fb6",
         "members": 50,
         "leagueTier": 13,
-        "races": 542,
-        "wpm": 63.7,
-        "accuracy": 94.8
+        "races": 500,
+        "wpm": 61,
+        "accuracy": 94.3
       },
       {
-        "rank": 13,
+        "rank": 16,
         "tag": "5HRK",
         "name": "SHARKS",
         "tagColor": "b8def5",
         "members": 40,
         "leagueTier": 11,
-        "races": 474,
-        "wpm": 80.9,
-        "accuracy": 94.3
+        "races": 499,
+        "wpm": 80.2,
+        "accuracy": 94.2
       },
       {
-        "rank": 14,
+        "rank": 17,
         "tag": "NTK",
         "name": "NT KINGS",
         "tagColor": "ee1f25",
         "members": 50,
         "leagueTier": 10,
-        "races": 408,
-        "wpm": 65.7,
-        "accuracy": 94.2
+        "races": 413,
+        "wpm": 65.6,
+        "accuracy": 94.1
       },
       {
-        "rank": 15,
+        "rank": 18,
         "tag": "OSPL",
         "name": "OSPL II",
         "tagColor": "5b52a3",
         "members": 10,
         "leagueTier": 6,
-        "races": 398,
-        "wpm": 117.4,
+        "races": 406,
+        "wpm": 117.5,
         "accuracy": 97.8
       },
       {
-        "rank": 16,
+        "rank": 19,
+        "tag": "TK",
+        "name": "Times Were Good",
+        "tagColor": "71c6a5",
+        "members": 11,
+        "leagueTier": 10,
+        "races": 392,
+        "wpm": 69.4,
+        "accuracy": 94.7
+      },
+      {
+        "rank": 20,
+        "tag": "N8TE",
+        "name": "Lets DomiN8TE",
+        "tagColor": "40b8ea",
+        "members": 43,
+        "leagueTier": 10,
+        "races": 367,
+        "wpm": 107.2,
+        "accuracy": 95.6
+      },
+      {
+        "rank": 21,
         "tag": "DNC",
         "name": "Unrivaled Legends",
         "tagColor": "f5eb21",
@@ -545,7 +544,7 @@
         "accuracy": 96.4
       },
       {
-        "rank": 17,
+        "rank": 22,
         "tag": "NAVE",
         "name": "consistent",
         "tagColor": "ac8bc0",
@@ -556,18 +555,29 @@
         "accuracy": 98
       },
       {
-        "rank": 18,
-        "tag": "N8TE",
-        "name": "Lets DomiN8TE",
-        "tagColor": "40b8ea",
-        "members": 43,
-        "leagueTier": 10,
-        "races": 286,
-        "wpm": 108.6,
-        "accuracy": 95.7
+        "rank": 23,
+        "tag": "TOPGOD",
+        "name": "NitroType Gods",
+        "tagColor": "daedfa",
+        "members": 44,
+        "leagueTier": 11,
+        "races": 279,
+        "wpm": 60.8,
+        "accuracy": 95.8
       },
       {
-        "rank": 19,
+        "rank": 24,
+        "tag": "THISKS",
+        "name": "thisisks",
+        "tagColor": "40b8ea",
+        "members": 45,
+        "leagueTier": 13,
+        "races": 249,
+        "wpm": 26.5,
+        "accuracy": 90.7
+      },
+      {
+        "rank": 25,
         "tag": "DRPT",
         "name": "ÐrivenRapidTypists",
         "tagColor": "ee1f25",
@@ -578,29 +588,40 @@
         "accuracy": 93.2
       },
       {
-        "rank": 20,
+        "rank": 26,
         "tag": "E10",
         "name": "ECCENTRICITY",
         "tagColor": "96d1f3",
         "members": 39,
         "leagueTier": 10,
-        "races": 223,
-        "wpm": 76.8,
-        "accuracy": 91.3
+        "races": 224,
+        "wpm": 76.1,
+        "accuracy": 91.2
       },
       {
-        "rank": 21,
+        "rank": 27,
         "tag": "LOVGOD",
         "name": "Christains For Life",
         "tagColor": "71c6a5",
         "members": 50,
         "leagueTier": 11,
-        "races": 205,
-        "wpm": 47.1,
-        "accuracy": 96
+        "races": 196,
+        "wpm": 46.2,
+        "accuracy": 96.2
       },
       {
-        "rank": 22,
+        "rank": 28,
+        "tag": "FASZ",
+        "name": "Forbidden Legends",
+        "tagColor": "8750a0",
+        "members": 33,
+        "leagueTier": 12,
+        "races": 194,
+        "wpm": 90.6,
+        "accuracy": 95.7
+      },
+      {
+        "rank": 29,
         "tag": "NTC",
         "name": "NT Crusaders",
         "tagColor": "fba51a",
@@ -611,51 +632,51 @@
         "accuracy": 95.5
       },
       {
-        "rank": 23,
-        "tag": "KZ",
-        "name": "Pursuit of Speed",
-        "tagColor": "ee1f25",
-        "members": 11,
-        "leagueTier": 10,
-        "races": 182,
-        "wpm": 95.4,
-        "accuracy": 93.7
-      },
-      {
-        "rank": 24,
+        "rank": 30,
         "tag": "ARMD",
         "name": "Flex Force",
         "tagColor": "71c055",
         "members": 44,
         "leagueTier": 10,
-        "races": 178,
-        "wpm": 88.4,
+        "races": 174,
+        "wpm": 88.2,
         "accuracy": 92.7
       },
       {
-        "rank": 25,
-        "tag": "FASZ",
-        "name": "Forbidden Legends",
-        "tagColor": "8750a0",
-        "members": 33,
-        "leagueTier": 12,
-        "races": 176,
-        "wpm": 93.2,
-        "accuracy": 96.1
+        "rank": 31,
+        "tag": "KZ",
+        "name": "Pursuit of Speed",
+        "tagColor": "ee1f25",
+        "members": 11,
+        "leagueTier": 10,
+        "races": 170,
+        "wpm": 95.7,
+        "accuracy": 93.7
       },
       {
-        "rank": 26,
+        "rank": 32,
+        "tag": "TESM",
+        "name": "Elite Smashers",
+        "tagColor": "40b8ea",
+        "members": 38,
+        "leagueTier": 6,
+        "races": 151,
+        "wpm": 50.7,
+        "accuracy": 92.3
+      },
+      {
+        "rank": 33,
         "tag": "BLZ",
         "name": "Blazing Keyboards",
         "tagColor": "ee1f25",
         "members": 50,
         "leagueTier": 11,
-        "races": 159,
-        "wpm": 54.7,
-        "accuracy": 94.6
+        "races": 148,
+        "wpm": 51.4,
+        "accuracy": 94.2
       },
       {
-        "rank": 27,
+        "rank": 34,
         "tag": "ESC",
         "name": "Escapism",
         "tagColor": "436fb6",
@@ -666,40 +687,62 @@
         "accuracy": 96.8
       },
       {
-        "rank": 28,
+        "rank": 35,
         "tag": "NTLE",
         "name": "Nitro Elites",
         "tagColor": "f5eb21",
         "members": 22,
         "leagueTier": 4,
-        "races": 132,
-        "wpm": 69.3,
+        "races": 134,
+        "wpm": 68.7,
         "accuracy": 96.1
       },
       {
-        "rank": 29,
+        "rank": 36,
         "tag": "BEGO0D",
         "name": "Save The Wildlife",
         "tagColor": "8eca76",
         "members": 10,
         "leagueTier": 11,
-        "races": 111,
-        "wpm": 60,
-        "accuracy": 90.5
+        "races": 121,
+        "wpm": 65.3,
+        "accuracy": 91.6
       },
       {
-        "rank": 30,
+        "rank": 37,
         "tag": "AC3R5",
         "name": "A C 3 R 5",
         "tagColor": "ee1f25",
         "members": 12,
         "leagueTier": 13,
-        "races": 107,
+        "races": 106,
         "wpm": 92.7,
         "accuracy": 95.6
       },
       {
-        "rank": 31,
+        "rank": 38,
+        "tag": "MDTP",
+        "name": "Midnight Typists",
+        "tagColor": "5b52a3",
+        "members": 41,
+        "leagueTier": 10,
+        "races": 102,
+        "wpm": 83.5,
+        "accuracy": 92.6
+      },
+      {
+        "rank": 39,
+        "tag": "TALK",
+        "name": "RIZE TO THE OCCASION",
+        "tagColor": "ee1f25",
+        "members": 48,
+        "leagueTier": 10,
+        "races": 98,
+        "wpm": 101.1,
+        "accuracy": 98.6
+      },
+      {
+        "rank": 40,
         "tag": "NTM",
         "name": "Nitro  Type Masters",
         "tagColor": "8750a0",
@@ -710,62 +753,40 @@
         "accuracy": 92
       },
       {
-        "rank": 32,
-        "tag": "P1RE",
-        "name": "EMP1RE 1M",
-        "tagColor": "ee1f25",
-        "members": 48,
-        "leagueTier": 10,
-        "races": 78,
-        "wpm": 74.1,
-        "accuracy": 95.5
-      },
-      {
-        "rank": 33,
-        "tag": "QXI",
-        "name": "Quinxy COMP",
-        "tagColor": "ea1979",
-        "members": 41,
-        "leagueTier": 10,
-        "races": 71,
-        "wpm": 84,
-        "accuracy": 94.5
-      },
-      {
-        "rank": 34,
-        "tag": "MDTP",
-        "name": "Midnight Typists",
-        "tagColor": "5b52a3",
-        "members": 41,
-        "leagueTier": 10,
-        "races": 59,
-        "wpm": 83.8,
-        "accuracy": 91.5
-      },
-      {
-        "rank": 35,
-        "tag": "MED13L",
-        "name": "Syndrome Awareness",
-        "tagColor": "c5e5d7",
-        "members": 49,
-        "leagueTier": 10,
-        "races": 58,
-        "wpm": 57.2,
-        "accuracy": 95.1
-      },
-      {
-        "rank": 36,
+        "rank": 41,
         "tag": "NHS",
         "name": "Nitro Hype Squad",
         "tagColor": "40b8ea",
         "members": 44,
         "leagueTier": 12,
-        "races": 54,
-        "wpm": 59.8,
-        "accuracy": 94
+        "races": 69,
+        "wpm": 80.1,
+        "accuracy": 95.5
       },
       {
-        "rank": 37,
+        "rank": 42,
+        "tag": "P1RE",
+        "name": "EMP1RE 1M",
+        "tagColor": "ee1f25",
+        "members": 48,
+        "leagueTier": 10,
+        "races": 66,
+        "wpm": 63.5,
+        "accuracy": 94.9
+      },
+      {
+        "rank": 43,
+        "tag": "MED13L",
+        "name": "Syndrome Awareness",
+        "tagColor": "c5e5d7",
+        "members": 49,
+        "leagueTier": 10,
+        "races": 59,
+        "wpm": 57.7,
+        "accuracy": 95.1
+      },
+      {
+        "rank": 44,
         "tag": "IBM",
         "name": "0110100001101001",
         "tagColor": "40b8ea",
@@ -776,7 +797,18 @@
         "accuracy": 97
       },
       {
-        "rank": 38,
+        "rank": 45,
+        "tag": "SVRN",
+        "name": "Sovereigns of NT",
+        "tagColor": "daedfa",
+        "members": 20,
+        "leagueTier": 10,
+        "races": 49,
+        "wpm": 56.7,
+        "accuracy": 95
+      },
+      {
+        "rank": 46,
         "tag": "AGNCY",
         "name": "-The Agency",
         "tagColor": "9bca3c",
@@ -787,7 +819,7 @@
         "accuracy": 92.6
       },
       {
-        "rank": 39,
+        "rank": 47,
         "tag": "COMP",
         "name": "accelerate",
         "tagColor": "ee1f25",
@@ -798,7 +830,29 @@
         "accuracy": 93.3
       },
       {
-        "rank": 40,
+        "rank": 48,
+        "tag": "QXI",
+        "name": "Quinxy COMP",
+        "tagColor": "ea1979",
+        "members": 41,
+        "leagueTier": 10,
+        "races": 42,
+        "wpm": 80.2,
+        "accuracy": 95.9
+      },
+      {
+        "rank": 49,
+        "tag": "CBPT",
+        "name": "Road to 500k races",
+        "tagColor": "c1dd89",
+        "members": 32,
+        "leagueTier": 11,
+        "races": 40,
+        "wpm": 79.8,
+        "accuracy": 94
+      },
+      {
+        "rank": 50,
         "tag": "AC3R",
         "name": "-Acers-",
         "tagColor": "436fb6",
@@ -809,18 +863,7 @@
         "accuracy": 95.7
       },
       {
-        "rank": 41,
-        "tag": "CBPT",
-        "name": "Road to 500k races",
-        "tagColor": "c1dd89",
-        "members": 32,
-        "leagueTier": 11,
-        "races": 39,
-        "wpm": 80.4,
-        "accuracy": 94.1
-      },
-      {
-        "rank": 42,
+        "rank": 51,
         "tag": "NTR",
         "name": "NT  Racing",
         "tagColor": "ee1f25",
@@ -831,7 +874,18 @@
         "accuracy": 94.9
       },
       {
-        "rank": 43,
+        "rank": 52,
+        "tag": "OVRMEN",
+        "name": "Overmen",
+        "tagColor": "ee1f25",
+        "members": 30,
+        "leagueTier": 11,
+        "races": 38,
+        "wpm": 79.3,
+        "accuracy": 95.2
+      },
+      {
+        "rank": 53,
         "tag": "PHTM",
         "name": "P4ANT0MS",
         "tagColor": "746bb0",
@@ -842,7 +896,7 @@
         "accuracy": 92.3
       },
       {
-        "rank": 44,
+        "rank": 54,
         "tag": "RYC",
         "name": "Royal Clutch",
         "tagColor": "fcf9d8",
@@ -853,7 +907,7 @@
         "accuracy": 94.9
       },
       {
-        "rank": 45,
+        "rank": 55,
         "tag": "NXC",
         "name": "Nitro X Champions",
         "tagColor": "ea1979",
@@ -864,18 +918,18 @@
         "accuracy": 96.8
       },
       {
-        "rank": 46,
+        "rank": 56,
         "tag": "DELETE",
         "name": "Keyboard Crushers",
         "tagColor": "fba51a",
         "members": 47,
         "leagueTier": 10,
         "races": 29,
-        "wpm": 87,
+        "wpm": 87.3,
         "accuracy": 97
       },
       {
-        "rank": 47,
+        "rank": 57,
         "tag": "SAIL",
         "name": "Sail_To_The_Top",
         "tagColor": "abb7dd",
@@ -886,7 +940,7 @@
         "accuracy": 98.1
       },
       {
-        "rank": 48,
+        "rank": 58,
         "tag": "R2L",
         "name": "Refuse 2 Lose",
         "tagColor": "8dd0b6",
@@ -897,7 +951,29 @@
         "accuracy": 92.5
       },
       {
-        "rank": 49,
+        "rank": 59,
+        "tag": "SMASHO",
+        "name": "SMASH LEGENDS",
+        "tagColor": "fba51a",
+        "members": 7,
+        "leagueTier": 7,
+        "races": 27,
+        "wpm": 84.2,
+        "accuracy": 90.8
+      },
+      {
+        "rank": 60,
+        "tag": "A9L",
+        "name": "Asphalt Legends",
+        "tagColor": "40b8ea",
+        "members": 28,
+        "leagueTier": 8,
+        "races": 25,
+        "wpm": 34.4,
+        "accuracy": 94.5
+      },
+      {
+        "rank": 61,
         "tag": "DMP",
         "name": "Divine Empire",
         "tagColor": "5b52a3",
@@ -908,7 +984,7 @@
         "accuracy": 95.6
       },
       {
-        "rank": 50,
+        "rank": 62,
         "tag": "FOLLY",
         "name": "Folly Times",
         "tagColor": "aed361",
@@ -919,18 +995,7 @@
         "accuracy": 85.7
       },
       {
-        "rank": 51,
-        "tag": "OVRMEN",
-        "name": "Overmen",
-        "tagColor": "ee1f25",
-        "members": 31,
-        "leagueTier": 10,
-        "races": 18,
-        "wpm": 117.2,
-        "accuracy": 95.9
-      },
-      {
-        "rank": 52,
+        "rank": 63,
         "tag": "CFF",
         "name": "besttie",
         "tagColor": "d1499b",
@@ -941,7 +1006,7 @@
         "accuracy": 93.2
       },
       {
-        "rank": 53,
+        "rank": 64,
         "tag": "5OAT67",
         "name": "Phantom Racers",
         "tagColor": "70c3ed",
@@ -952,7 +1017,18 @@
         "accuracy": 93
       },
       {
-        "rank": 54,
+        "rank": 65,
+        "tag": "CX",
+        "name": "Retired Cosmos",
+        "tagColor": "5b52a3",
+        "members": 24,
+        "leagueTier": 10,
+        "races": 13,
+        "wpm": 78.9,
+        "accuracy": 91
+      },
+      {
+        "rank": 66,
         "tag": "EL1TE",
         "name": "The EL1TE",
         "tagColor": "ee1f25",
@@ -963,7 +1039,7 @@
         "accuracy": 97.5
       },
       {
-        "rank": 55,
+        "rank": 67,
         "tag": "PIGFLY",
         "name": "The Flying Pigs",
         "tagColor": "ea1979",
@@ -974,7 +1050,18 @@
         "accuracy": 0
       },
       {
-        "rank": 56,
+        "rank": 68,
+        "tag": "SSHR",
+        "name": "SSH Retired Racers",
+        "tagColor": "b8def5",
+        "members": 14,
+        "leagueTier": 9,
+        "races": 8,
+        "wpm": 106.2,
+        "accuracy": 94.2
+      },
+      {
+        "rank": 69,
         "tag": "12AMS",
         "name": "-Midnight Racerz-",
         "tagColor": "5b52a3",
@@ -985,7 +1072,7 @@
         "accuracy": 97.2
       },
       {
-        "rank": 57,
+        "rank": 70,
         "tag": "3Q",
         "name": "3qual Starz",
         "tagColor": "746bb0",
@@ -996,7 +1083,18 @@
         "accuracy": 95.9
       },
       {
-        "rank": 58,
+        "rank": 71,
+        "tag": "SURRON",
+        "name": "surronster rides",
+        "tagColor": "6783c2",
+        "members": 5,
+        "leagueTier": 3,
+        "races": 7,
+        "wpm": 32.8,
+        "accuracy": 86.9
+      },
+      {
+        "rank": 72,
         "tag": "BETRAY",
         "name": "THE SHADOWS OF NT",
         "tagColor": "ee1f25",
@@ -1007,18 +1105,7 @@
         "accuracy": 92.3
       },
       {
-        "rank": 59,
-        "tag": "CX",
-        "name": "Retired Cosmos",
-        "tagColor": "5b52a3",
-        "members": 24,
-        "leagueTier": 10,
-        "races": 6,
-        "wpm": 58,
-        "accuracy": 90.2
-      },
-      {
-        "rank": 60,
+        "rank": 73,
         "tag": "RL1",
         "name": "Rising Legends 1",
         "tagColor": "5b52a3",
@@ -1029,18 +1116,7 @@
         "accuracy": 90.6
       },
       {
-        "rank": 61,
-        "tag": "LGRZ",
-        "name": "Legendary Racerz",
-        "tagColor": "5b52a3",
-        "members": 9,
-        "leagueTier": 3,
-        "races": 5,
-        "wpm": 15.5,
-        "accuracy": 86.1
-      },
-      {
-        "rank": 62,
+        "rank": 74,
         "tag": "PNTO",
         "name": "Project Nitro Type",
         "tagColor": "f5eb21",
@@ -1051,7 +1127,7 @@
         "accuracy": 92.2
       },
       {
-        "rank": 63,
+        "rank": 75,
         "tag": "LEROY",
         "name": "Leroys",
         "tagColor": "f389a7",
@@ -1062,18 +1138,18 @@
         "accuracy": 97.7
       },
       {
-        "rank": 64,
-        "tag": "A9L",
-        "name": "Asphalt Legends",
-        "tagColor": "40b8ea",
-        "members": 28,
-        "leagueTier": 8,
-        "races": 3,
-        "wpm": 92.6,
-        "accuracy": 97.2
+        "rank": 76,
+        "tag": "LGRZ",
+        "name": "Legendary Racerz",
+        "tagColor": "5b52a3",
+        "members": 9,
+        "leagueTier": 3,
+        "races": 4,
+        "wpm": 13.6,
+        "accuracy": 94.5
       },
       {
-        "rank": 65,
+        "rank": 77,
         "tag": "D1RE",
         "name": "-   DES1R3D    -",
         "tagColor": "ee1f25",
@@ -1084,7 +1160,7 @@
         "accuracy": 96.8
       },
       {
-        "rank": 66,
+        "rank": 78,
         "tag": "EVR",
         "name": "Evolutionary Racers",
         "tagColor": "889bce",
@@ -1095,7 +1171,7 @@
         "accuracy": 89.6
       },
       {
-        "rank": 67,
+        "rank": 79,
         "tag": "MEYBO",
         "name": "legends222",
         "tagColor": "f5eb21",
@@ -1114,39 +1190,83 @@
     "teams": [
       {
         "rank": 1,
+        "tag": "SSH",
+        "name": "Shell  Riders",
+        "tagColor": "436fb6",
+        "members": 49,
+        "leagueTier": 13,
+        "races": 10768648,
+        "wpm": 90.5,
+        "accuracy": 96.3
+      },
+      {
+        "rank": 2,
         "tag": "PR2W",
         "name": "P1nks R2 W1ld",
         "tagColor": "ea1979",
         "members": 49,
         "leagueTier": 13,
-        "races": 9059045,
+        "races": 9059185,
         "wpm": 89.9,
         "accuracy": 95.8
       },
       {
-        "rank": 2,
+        "rank": 3,
         "tag": "N8TE",
         "name": "Lets DomiN8TE",
         "tagColor": "40b8ea",
         "members": 43,
         "leagueTier": 10,
-        "races": 5038809,
+        "races": 5038890,
         "wpm": 87.8,
         "accuracy": 95.6
       },
       {
-        "rank": 3,
+        "rank": 4,
+        "tag": "TALK",
+        "name": "RIZE TO THE OCCASION",
+        "tagColor": "ee1f25",
+        "members": 48,
+        "leagueTier": 10,
+        "races": 4803755,
+        "wpm": 77.1,
+        "accuracy": 94.3
+      },
+      {
+        "rank": 5,
         "tag": "S0RC",
         "name": "Solar   Racers",
         "tagColor": "ee1f25",
         "members": 47,
         "leagueTier": 11,
-        "races": 4120994,
+        "races": 4121068,
         "wpm": 93.2,
         "accuracy": 95.9
       },
       {
-        "rank": 4,
+        "rank": 6,
+        "tag": "TCHR",
+        "name": "Inculcators",
+        "tagColor": "f5eb21",
+        "members": 42,
+        "leagueTier": 11,
+        "races": 3424900,
+        "wpm": 66.3,
+        "accuracy": 94.8
+      },
+      {
+        "rank": 7,
+        "tag": "TOPGOD",
+        "name": "NitroType Gods",
+        "tagColor": "daedfa",
+        "members": 44,
+        "leagueTier": 11,
+        "races": 3123105,
+        "wpm": 92.2,
+        "accuracy": 95.5
+      },
+      {
+        "rank": 8,
         "tag": "BEEHVE",
         "name": "Weekly Gold Comp",
         "tagColor": "f5eb21",
@@ -1157,7 +1277,7 @@
         "accuracy": 95.2
       },
       {
-        "rank": 5,
+        "rank": 9,
         "tag": "NTR",
         "name": "NT  Racing",
         "tagColor": "ee1f25",
@@ -1168,29 +1288,29 @@
         "accuracy": 95.4
       },
       {
-        "rank": 6,
+        "rank": 10,
         "tag": "FASZ",
         "name": "Forbidden Legends",
         "tagColor": "8750a0",
         "members": 33,
         "leagueTier": 12,
-        "races": 1708389,
+        "races": 1708407,
         "wpm": 85.4,
         "accuracy": 94.4
       },
       {
-        "rank": 7,
+        "rank": 11,
         "tag": "NTPD1",
         "name": "Nitro Type Police",
         "tagColor": "40b8ea",
         "members": 50,
         "leagueTier": 11,
-        "races": 1567149,
+        "races": 1567159,
         "wpm": 81.9,
         "accuracy": 96
       },
       {
-        "rank": 8,
+        "rank": 12,
         "tag": "IBM",
         "name": "0110100001101001",
         "tagColor": "40b8ea",
@@ -1201,7 +1321,18 @@
         "accuracy": 96.8
       },
       {
-        "rank": 9,
+        "rank": 13,
+        "tag": "TK",
+        "name": "Times Were Good",
+        "tagColor": "71c6a5",
+        "members": 11,
+        "leagueTier": 10,
+        "races": 1151234,
+        "wpm": 99.3,
+        "accuracy": 95
+      },
+      {
+        "rank": 14,
         "tag": "P1RE",
         "name": "EMP1RE 1M",
         "tagColor": "ee1f25",
@@ -1212,18 +1343,29 @@
         "accuracy": 95.2
       },
       {
-        "rank": 10,
+        "rank": 15,
+        "tag": "TESM",
+        "name": "Elite Smashers",
+        "tagColor": "40b8ea",
+        "members": 38,
+        "leagueTier": 6,
+        "races": 1067367,
+        "wpm": 77.2,
+        "accuracy": 94.5
+      },
+      {
+        "rank": 16,
         "tag": "CZBZ",
         "name": "Cr4zy Typerz",
         "tagColor": "436fb6",
         "members": 50,
         "leagueTier": 12,
-        "races": 1060263,
+        "races": 1060273,
         "wpm": 94.8,
         "accuracy": 96.1
       },
       {
-        "rank": 11,
+        "rank": 17,
         "tag": "FOLLY",
         "name": "Folly Times",
         "tagColor": "aed361",
@@ -1234,7 +1376,7 @@
         "accuracy": 94.9
       },
       {
-        "rank": 12,
+        "rank": 18,
         "tag": "FLPR",
         "name": "Penguin's Typers!",
         "tagColor": "5b52a3",
@@ -1245,7 +1387,7 @@
         "accuracy": 93.8
       },
       {
-        "rank": 13,
+        "rank": 19,
         "tag": "ESC",
         "name": "Escapism",
         "tagColor": "436fb6",
@@ -1256,18 +1398,18 @@
         "accuracy": 96.2
       },
       {
-        "rank": 14,
+        "rank": 20,
         "tag": "RFTP",
         "name": "2000 Tiger",
         "tagColor": "fcf9d8",
         "members": 41,
         "leagueTier": 13,
-        "races": 491521,
+        "races": 491622,
         "wpm": 77,
         "accuracy": 93.7
       },
       {
-        "rank": 15,
+        "rank": 21,
         "tag": "HYP3Z",
         "name": "-Hyp3rwave-",
         "tagColor": "5b52a3",
@@ -1278,7 +1420,7 @@
         "accuracy": 94.9
       },
       {
-        "rank": 16,
+        "rank": 22,
         "tag": "DMP",
         "name": "Divine Empire",
         "tagColor": "5b52a3",
@@ -1289,7 +1431,7 @@
         "accuracy": 94.9
       },
       {
-        "rank": 17,
+        "rank": 23,
         "tag": "AGNCY",
         "name": "-The Agency",
         "tagColor": "9bca3c",
@@ -1300,7 +1442,7 @@
         "accuracy": 96.1
       },
       {
-        "rank": 18,
+        "rank": 24,
         "tag": "EL1TE",
         "name": "The EL1TE",
         "tagColor": "ee1f25",
@@ -1311,29 +1453,29 @@
         "accuracy": 94.7
       },
       {
-        "rank": 19,
+        "rank": 25,
         "tag": "IPX",
         "name": "Racing To Victory",
         "tagColor": "436fb6",
         "members": 50,
         "leagueTier": 13,
-        "races": 426573,
+        "races": 426585,
         "wpm": 81.7,
         "accuracy": 94.3
       },
       {
-        "rank": 20,
+        "rank": 26,
         "tag": "EQU",
         "name": "Equilibrium",
         "tagColor": "746bb0",
         "members": 45,
         "leagueTier": 9,
-        "races": 419319,
+        "races": 419400,
         "wpm": 72.3,
         "accuracy": 96
       },
       {
-        "rank": 21,
+        "rank": 27,
         "tag": "LOVGOD",
         "name": "Christains For Life",
         "tagColor": "71c6a5",
@@ -1344,7 +1486,7 @@
         "accuracy": 93.8
       },
       {
-        "rank": 22,
+        "rank": 28,
         "tag": "DRPT",
         "name": "ÐrivenRapidTypists",
         "tagColor": "ee1f25",
@@ -1355,51 +1497,51 @@
         "accuracy": 96.2
       },
       {
-        "rank": 23,
+        "rank": 29,
         "tag": "ASN",
         "name": "Ascension Epitome",
         "tagColor": "40b8ea",
         "members": 28,
         "leagueTier": 12,
-        "races": 329945,
+        "races": 329955,
         "wpm": 73.7,
         "accuracy": 94.5
       },
       {
-        "rank": 24,
+        "rank": 30,
         "tag": "NTK",
         "name": "NT KINGS",
         "tagColor": "ee1f25",
         "members": 50,
         "leagueTier": 10,
-        "races": 323817,
+        "races": 323839,
         "wpm": 72.2,
         "accuracy": 95.6
       },
       {
-        "rank": 25,
+        "rank": 31,
         "tag": "CBPT",
         "name": "Road to 500k races",
         "tagColor": "c1dd89",
         "members": 32,
         "leagueTier": 11,
-        "races": 306110,
+        "races": 306113,
         "wpm": 78.9,
         "accuracy": 95.6
       },
       {
-        "rank": 26,
+        "rank": 32,
         "tag": "5HRK",
         "name": "SHARKS",
         "tagColor": "b8def5",
         "members": 40,
         "leagueTier": 11,
-        "races": 293259,
+        "races": 293286,
         "wpm": 93.7,
         "accuracy": 95.3
       },
       {
-        "rank": 27,
+        "rank": 33,
         "tag": "NTO",
         "name": "Nitro Type Olympians",
         "tagColor": "40b8ea",
@@ -1410,18 +1552,18 @@
         "accuracy": 94.2
       },
       {
-        "rank": 28,
+        "rank": 34,
         "tag": "MED13L",
         "name": "Syndrome Awareness",
         "tagColor": "c5e5d7",
         "members": 49,
         "leagueTier": 10,
-        "races": 257497,
+        "races": 257499,
         "wpm": 82.9,
         "accuracy": 95
       },
       {
-        "rank": 29,
+        "rank": 35,
         "tag": "SAIL",
         "name": "Sail_To_The_Top",
         "tagColor": "abb7dd",
@@ -1432,7 +1574,7 @@
         "accuracy": 93.6
       },
       {
-        "rank": 30,
+        "rank": 36,
         "tag": "FL4ME5",
         "name": "-NT FLAMES-",
         "tagColor": "ee1f25",
@@ -1443,7 +1585,7 @@
         "accuracy": 95.3
       },
       {
-        "rank": 31,
+        "rank": 37,
         "tag": "NTM",
         "name": "Nitro  Type Masters",
         "tagColor": "8750a0",
@@ -1454,51 +1596,62 @@
         "accuracy": 96.2
       },
       {
-        "rank": 32,
+        "rank": 38,
+        "tag": "TBZ",
+        "name": "TraiIblazers",
+        "tagColor": "ee1f25",
+        "members": 50,
+        "leagueTier": 12,
+        "races": 219980,
+        "wpm": 89.3,
+        "accuracy": 95.7
+      },
+      {
+        "rank": 39,
         "tag": "NHS",
         "name": "Nitro Hype Squad",
         "tagColor": "40b8ea",
         "members": 44,
         "leagueTier": 12,
-        "races": 216198,
+        "races": 216224,
         "wpm": 76.4,
         "accuracy": 94.3
       },
       {
-        "rank": 33,
+        "rank": 40,
         "tag": "BLZ",
         "name": "Blazing Keyboards",
         "tagColor": "ee1f25",
         "members": 50,
         "leagueTier": 11,
-        "races": 211313,
+        "races": 211338,
         "wpm": 63,
         "accuracy": 93.8
       },
       {
-        "rank": 34,
+        "rank": 41,
         "tag": "E10",
         "name": "ECCENTRICITY",
         "tagColor": "96d1f3",
         "members": 39,
         "leagueTier": 10,
-        "races": 210117,
+        "races": 210120,
         "wpm": 83.7,
         "accuracy": 95
       },
       {
-        "rank": 35,
+        "rank": 42,
         "tag": "DELETE",
         "name": "Keyboard Crushers",
         "tagColor": "fba51a",
         "members": 47,
         "leagueTier": 10,
-        "races": 208035,
+        "races": 208036,
         "wpm": 70.6,
         "accuracy": 92.9
       },
       {
-        "rank": 36,
+        "rank": 43,
         "tag": "ARMD",
         "name": "Flex Force",
         "tagColor": "71c055",
@@ -1509,18 +1662,18 @@
         "accuracy": 95.5
       },
       {
-        "rank": 37,
+        "rank": 44,
         "tag": "BN8",
         "name": "BENEVOLENCE",
         "tagColor": "ee1f25",
         "members": 50,
         "leagueTier": 11,
-        "races": 201110,
+        "races": 201141,
         "wpm": 77.7,
         "accuracy": 95.6
       },
       {
-        "rank": 38,
+        "rank": 45,
         "tag": "RYC",
         "name": "Royal Clutch",
         "tagColor": "fcf9d8",
@@ -1531,18 +1684,18 @@
         "accuracy": 94.2
       },
       {
-        "rank": 39,
+        "rank": 46,
         "tag": "BEGO0D",
         "name": "Save The Wildlife",
         "tagColor": "8eca76",
         "members": 10,
         "leagueTier": 11,
-        "races": 177791,
+        "races": 177801,
         "wpm": 85.2,
         "accuracy": 95.5
       },
       {
-        "rank": 40,
+        "rank": 47,
         "tag": "12AMS",
         "name": "-Midnight Racerz-",
         "tagColor": "5b52a3",
@@ -1553,18 +1706,18 @@
         "accuracy": 93.5
       },
       {
-        "rank": 41,
+        "rank": 48,
         "tag": "COMP5",
         "name": "C0MP5 LEGACY",
         "tagColor": "fec679",
         "members": 50,
         "leagueTier": 11,
-        "races": 166421,
+        "races": 166575,
         "wpm": 73.6,
         "accuracy": 95.2
       },
       {
-        "rank": 42,
+        "rank": 49,
         "tag": "NAVE",
         "name": "consistent",
         "tagColor": "ac8bc0",
@@ -1575,18 +1728,18 @@
         "accuracy": 95.6
       },
       {
-        "rank": 43,
+        "rank": 50,
         "tag": "QXI",
         "name": "Quinxy COMP",
         "tagColor": "ea1979",
         "members": 41,
         "leagueTier": 10,
-        "races": 154555,
+        "races": 154559,
         "wpm": 86,
         "accuracy": 95.6
       },
       {
-        "rank": 44,
+        "rank": 51,
         "tag": "D1RE",
         "name": "-   DES1R3D    -",
         "tagColor": "ee1f25",
@@ -1597,7 +1750,7 @@
         "accuracy": 94.2
       },
       {
-        "rank": 45,
+        "rank": 52,
         "tag": "5OAT67",
         "name": "Phantom Racers",
         "tagColor": "70c3ed",
@@ -1608,7 +1761,7 @@
         "accuracy": 94.5
       },
       {
-        "rank": 46,
+        "rank": 53,
         "tag": "BETRAY",
         "name": "THE SHADOWS OF NT",
         "tagColor": "ee1f25",
@@ -1619,7 +1772,7 @@
         "accuracy": 94.8
       },
       {
-        "rank": 47,
+        "rank": 54,
         "tag": "RL1",
         "name": "Rising Legends 1",
         "tagColor": "5b52a3",
@@ -1630,7 +1783,18 @@
         "accuracy": 94.9
       },
       {
-        "rank": 48,
+        "rank": 55,
+        "tag": "SMASHO",
+        "name": "SMASH LEGENDS",
+        "tagColor": "fba51a",
+        "members": 7,
+        "leagueTier": 7,
+        "races": 103067,
+        "wpm": 63.6,
+        "accuracy": 93.2
+      },
+      {
+        "rank": 56,
         "tag": "NTC",
         "name": "NT Crusaders",
         "tagColor": "fba51a",
@@ -1641,7 +1805,7 @@
         "accuracy": 96.1
       },
       {
-        "rank": 49,
+        "rank": 57,
         "tag": "EVR",
         "name": "Evolutionary Racers",
         "tagColor": "889bce",
@@ -1652,7 +1816,7 @@
         "accuracy": 97.2
       },
       {
-        "rank": 50,
+        "rank": 58,
         "tag": "KZ",
         "name": "Pursuit of Speed",
         "tagColor": "ee1f25",
@@ -1663,29 +1827,29 @@
         "accuracy": 94.8
       },
       {
-        "rank": 51,
+        "rank": 59,
         "tag": "CX",
         "name": "Retired Cosmos",
         "tagColor": "5b52a3",
         "members": 24,
         "leagueTier": 10,
-        "races": 85997,
+        "races": 86004,
         "wpm": 74,
         "accuracy": 95.3
       },
       {
-        "rank": 52,
+        "rank": 60,
         "tag": "OVRMEN",
         "name": "Overmen",
         "tagColor": "ee1f25",
-        "members": 31,
-        "leagueTier": 10,
-        "races": 84429,
+        "members": 30,
+        "leagueTier": 11,
+        "races": 84449,
         "wpm": 95.8,
         "accuracy": 95.7
       },
       {
-        "rank": 53,
+        "rank": 61,
         "tag": "PIGFLY",
         "name": "The Flying Pigs",
         "tagColor": "ea1979",
@@ -1696,18 +1860,18 @@
         "accuracy": 95
       },
       {
-        "rank": 54,
+        "rank": 62,
         "tag": "A9L",
         "name": "Asphalt Legends",
         "tagColor": "40b8ea",
         "members": 28,
         "leagueTier": 8,
-        "races": 68979,
-        "wpm": 96.6,
+        "races": 69001,
+        "wpm": 96.5,
         "accuracy": 96.2
       },
       {
-        "rank": 55,
+        "rank": 63,
         "tag": "AC3R5",
         "name": "A C 3 R 5",
         "tagColor": "ee1f25",
@@ -1718,7 +1882,7 @@
         "accuracy": 94.4
       },
       {
-        "rank": 56,
+        "rank": 64,
         "tag": "PHTM",
         "name": "P4ANT0MS",
         "tagColor": "746bb0",
@@ -1729,7 +1893,7 @@
         "accuracy": 96.5
       },
       {
-        "rank": 57,
+        "rank": 65,
         "tag": "LEROY",
         "name": "Leroys",
         "tagColor": "f389a7",
@@ -1740,7 +1904,7 @@
         "accuracy": 95.4
       },
       {
-        "rank": 58,
+        "rank": 66,
         "tag": "AC3R",
         "name": "-Acers-",
         "tagColor": "436fb6",
@@ -1751,18 +1915,29 @@
         "accuracy": 93.8
       },
       {
-        "rank": 59,
+        "rank": 67,
         "tag": "MDTP",
         "name": "Midnight Typists",
         "tagColor": "5b52a3",
         "members": 41,
         "leagueTier": 10,
-        "races": 65105,
+        "races": 65150,
         "wpm": 95,
         "accuracy": 94.7
       },
       {
-        "rank": 60,
+        "rank": 68,
+        "tag": "THISKS",
+        "name": "thisisks",
+        "tagColor": "40b8ea",
+        "members": 45,
+        "leagueTier": 13,
+        "races": 60275,
+        "wpm": 71.2,
+        "accuracy": 94.7
+      },
+      {
+        "rank": 69,
         "tag": "NXC",
         "name": "Nitro X Champions",
         "tagColor": "ea1979",
@@ -1773,7 +1948,7 @@
         "accuracy": 96.8
       },
       {
-        "rank": 61,
+        "rank": 70,
         "tag": "S4LT",
         "name": "Top Tier Royalty",
         "tagColor": "d1499b",
@@ -1784,7 +1959,7 @@
         "accuracy": 94.7
       },
       {
-        "rank": 62,
+        "rank": 71,
         "tag": "PIXIE6",
         "name": "Wild Pixies",
         "tagColor": "5b52a3",
@@ -1795,7 +1970,18 @@
         "accuracy": 95.9
       },
       {
-        "rank": 63,
+        "rank": 72,
+        "tag": "SVRN",
+        "name": "Sovereigns of NT",
+        "tagColor": "daedfa",
+        "members": 20,
+        "leagueTier": 10,
+        "races": 36735,
+        "wpm": 76.4,
+        "accuracy": 95.6
+      },
+      {
+        "rank": 73,
         "tag": "REB3LS",
         "name": "Rebellions",
         "tagColor": "ee1f25",
@@ -1806,7 +1992,7 @@
         "accuracy": 95
       },
       {
-        "rank": 64,
+        "rank": 74,
         "tag": "PNTO",
         "name": "Project Nitro Type",
         "tagColor": "f5eb21",
@@ -1817,7 +2003,18 @@
         "accuracy": 95.8
       },
       {
-        "rank": 65,
+        "rank": 75,
+        "tag": "SSHR",
+        "name": "SSH Retired Racers",
+        "tagColor": "b8def5",
+        "members": 14,
+        "leagueTier": 9,
+        "races": 21582,
+        "wpm": 103.8,
+        "accuracy": 96
+      },
+      {
+        "rank": 76,
         "tag": "3Q",
         "name": "3qual Starz",
         "tagColor": "746bb0",
@@ -1828,7 +2025,7 @@
         "accuracy": 96.5
       },
       {
-        "rank": 66,
+        "rank": 77,
         "tag": "GDZ",
         "name": "-Godz-",
         "tagColor": "71c055",
@@ -1839,7 +2036,7 @@
         "accuracy": 97.4
       },
       {
-        "rank": 67,
+        "rank": 78,
         "tag": "C0MP5",
         "name": "C0MP5retirement team",
         "tagColor": "fec679",
@@ -1850,7 +2047,7 @@
         "accuracy": 94.9
       },
       {
-        "rank": 68,
+        "rank": 79,
         "tag": "EVOQ",
         "name": "Myriad Paragon",
         "tagColor": "d1499b",
@@ -1861,7 +2058,7 @@
         "accuracy": 94.8
       },
       {
-        "rank": 69,
+        "rank": 80,
         "tag": "RFV",
         "name": "Racing For Victory",
         "tagColor": "436fb6",
@@ -1872,18 +2069,18 @@
         "accuracy": 95.1
       },
       {
-        "rank": 70,
+        "rank": 81,
         "tag": "OSPL",
         "name": "OSPL II",
         "tagColor": "5b52a3",
         "members": 10,
         "leagueTier": 6,
-        "races": 13178,
+        "races": 13186,
         "wpm": 126.5,
         "accuracy": 97.3
       },
       {
-        "rank": 71,
+        "rank": 82,
         "tag": "PRVL",
         "name": "Prevail 2",
         "tagColor": "d1499b",
@@ -1894,7 +2091,7 @@
         "accuracy": 95
       },
       {
-        "rank": 72,
+        "rank": 83,
         "tag": "R2L",
         "name": "Refuse 2 Lose",
         "tagColor": "8dd0b6",
@@ -1905,7 +2102,7 @@
         "accuracy": 96.8
       },
       {
-        "rank": 73,
+        "rank": 84,
         "tag": "NTV3",
         "name": "Nitro Type Version 3",
         "tagColor": "ee1f25",
@@ -1916,7 +2113,7 @@
         "accuracy": 93.3
       },
       {
-        "rank": 74,
+        "rank": 85,
         "tag": "PQ",
         "name": "sssssss",
         "tagColor": "d1499b",
@@ -1927,7 +2124,7 @@
         "accuracy": 96.2
       },
       {
-        "rank": 75,
+        "rank": 86,
         "tag": "COMP",
         "name": "accelerate",
         "tagColor": "ee1f25",
@@ -1938,7 +2135,18 @@
         "accuracy": 92.7
       },
       {
-        "rank": 76,
+        "rank": 87,
+        "tag": "T3X5",
+        "name": "Verified Grinders",
+        "tagColor": "f5eb21",
+        "members": 8,
+        "leagueTier": 4,
+        "races": 2145,
+        "wpm": 86.9,
+        "accuracy": 96
+      },
+      {
+        "rank": 88,
         "tag": "DCR",
         "name": "Drift Core",
         "tagColor": "40b8ea",
@@ -1949,29 +2157,18 @@
         "accuracy": 95.8
       },
       {
-        "rank": 77,
-        "tag": "ACN",
-        "name": "Ascending",
-        "tagColor": "d2d7ed",
-        "members": 7,
-        "leagueTier": 5,
-        "races": 1237,
-        "wpm": 96.3,
-        "accuracy": 95.6
-      },
-      {
-        "rank": 78,
+        "rank": 89,
         "tag": "NTLE",
         "name": "Nitro Elites",
         "tagColor": "f5eb21",
         "members": 22,
         "leagueTier": 4,
-        "races": 1189,
-        "wpm": 79.5,
+        "races": 1193,
+        "wpm": 79.3,
         "accuracy": 95.9
       },
       {
-        "rank": 79,
+        "rank": 90,
         "tag": "B2T",
         "name": "Born 2 Type",
         "tagColor": "ee1f25",
@@ -1982,7 +2179,7 @@
         "accuracy": 96.4
       },
       {
-        "rank": 80,
+        "rank": 91,
         "tag": "F4MST",
         "name": "Zoomed In",
         "tagColor": "ee1f25",
@@ -1993,7 +2190,7 @@
         "accuracy": 89.7
       },
       {
-        "rank": 81,
+        "rank": 92,
         "tag": "RAIDRS",
         "name": "les keep growin",
         "tagColor": "f15b40",
@@ -2004,7 +2201,7 @@
         "accuracy": 94.3
       },
       {
-        "rank": 82,
+        "rank": 93,
         "tag": "LGRZ",
         "name": "Legendary Racerz",
         "tagColor": "5b52a3",
@@ -2015,7 +2212,7 @@
         "accuracy": 97.8
       },
       {
-        "rank": 83,
+        "rank": 94,
         "tag": "DNC",
         "name": "Unrivaled Legends",
         "tagColor": "f5eb21",
@@ -2026,7 +2223,7 @@
         "accuracy": 96.4
       },
       {
-        "rank": 84,
+        "rank": 95,
         "tag": "ITW",
         "name": "Incentive 2 win",
         "tagColor": "6783c2",
@@ -2037,7 +2234,7 @@
         "accuracy": 94.4
       },
       {
-        "rank": 85,
+        "rank": 96,
         "tag": "SHOWS",
         "name": "showofffs",
         "tagColor": "abdac7",
@@ -2048,7 +2245,7 @@
         "accuracy": 93.9
       },
       {
-        "rank": 86,
+        "rank": 97,
         "tag": "JRASIC",
         "name": "Bryan_50k",
         "tagColor": "436fb6",
@@ -2059,7 +2256,7 @@
         "accuracy": 96.2
       },
       {
-        "rank": 87,
+        "rank": 98,
         "tag": "PSR",
         "name": "-Power Surge Racers-",
         "tagColor": "f5eb21",
@@ -2070,7 +2267,18 @@
         "accuracy": 92.6
       },
       {
-        "rank": 88,
+        "rank": 99,
+        "tag": "SURRON",
+        "name": "surronster rides",
+        "tagColor": "6783c2",
+        "members": 5,
+        "leagueTier": 3,
+        "races": 138,
+        "wpm": 33.1,
+        "accuracy": 90.3
+      },
+      {
+        "rank": 100,
         "tag": "NTNG",
         "name": "Nitro National Gaurd",
         "tagColor": "71c055",
@@ -2081,7 +2289,18 @@
         "accuracy": 93.7
       },
       {
-        "rank": 89,
+        "rank": 101,
+        "tag": "SN",
+        "name": "Seasonal",
+        "tagColor": "ded2e8",
+        "members": 2,
+        "leagueTier": 3,
+        "races": 83,
+        "wpm": 59.1,
+        "accuracy": 89.6
+      },
+      {
+        "rank": 102,
         "tag": "IB",
         "name": "vGrind",
         "tagColor": "d1499b",
@@ -2092,7 +2311,7 @@
         "accuracy": 95
       },
       {
-        "rank": 90,
+        "rank": 103,
         "tag": "NTT",
         "name": "Zero Tolerances",
         "tagColor": "d3cfe8",
@@ -2103,7 +2322,7 @@
         "accuracy": 95.5
       },
       {
-        "rank": 91,
+        "rank": 104,
         "tag": "L1ON",
         "name": "Tiger Tribe",
         "tagColor": "fba51a",
@@ -2114,7 +2333,7 @@
         "accuracy": 93.6
       },
       {
-        "rank": 92,
+        "rank": 105,
         "tag": "LKD",
         "name": "Always Locked IN",
         "tagColor": "ded2e8",
@@ -2125,7 +2344,7 @@
         "accuracy": 87.5
       },
       {
-        "rank": 93,
+        "rank": 106,
         "tag": "MEYBO",
         "name": "legends222",
         "tagColor": "f5eb21",
@@ -2136,7 +2355,7 @@
         "accuracy": 93.5
       },
       {
-        "rank": 94,
+        "rank": 107,
         "tag": "CFF",
         "name": "besttie",
         "tagColor": "d1499b",
@@ -2147,7 +2366,7 @@
         "accuracy": 92.8
       },
       {
-        "rank": 95,
+        "rank": 108,
         "tag": "2G",
         "name": "2    Goated",
         "tagColor": "d1499b",
@@ -2158,7 +2377,7 @@
         "accuracy": 95
       },
       {
-        "rank": 96,
+        "rank": 109,
         "tag": "FUSE",
         "name": "RIP Fusion Racers",
         "tagColor": "436fb6",
@@ -2169,7 +2388,7 @@
         "accuracy": 95.2
       },
       {
-        "rank": 97,
+        "rank": 110,
         "tag": "DL",
         "name": "RawisUnique",
         "tagColor": "ee1f25",
@@ -2180,7 +2399,7 @@
         "accuracy": 89.7
       },
       {
-        "rank": 98,
+        "rank": 111,
         "tag": "LOFH",
         "name": "Holding for Fox",
         "tagColor": "ee1f25",
@@ -2191,7 +2410,7 @@
         "accuracy": 96.2
       },
       {
-        "rank": 99,
+        "rank": 112,
         "tag": "ELR",
         "name": "Electric Racers",
         "tagColor": "f5eb21",
@@ -2202,7 +2421,7 @@
         "accuracy": 97.3
       },
       {
-        "rank": 100,
+        "rank": 113,
         "tag": "NSC",
         "name": "Not So Competitive",
         "tagColor": "ded2e8",
@@ -2213,7 +2432,7 @@
         "accuracy": 96.3
       },
       {
-        "rank": 101,
+        "rank": 114,
         "tag": "PNK",
         "name": "Pink Spartans",
         "tagColor": "d1499b",
@@ -2224,7 +2443,7 @@
         "accuracy": 88.7
       },
       {
-        "rank": 102,
+        "rank": 115,
         "tag": "DTR",
         "name": "drip the respect yo",
         "tagColor": "f5eb21",
@@ -2235,7 +2454,7 @@
         "accuracy": 96
       },
       {
-        "rank": 103,
+        "rank": 116,
         "tag": "FTW",
         "name": "For The W1n",
         "tagColor": "ee1f25",
@@ -2246,7 +2465,7 @@
         "accuracy": 96.9
       },
       {
-        "rank": 104,
+        "rank": 117,
         "tag": "AKO",
         "name": "Akogare",
         "tagColor": "ea1979",
@@ -2257,7 +2476,7 @@
         "accuracy": 99.5
       },
       {
-        "rank": 105,
+        "rank": 118,
         "tag": "NTA",
         "name": "Ambassadors",
         "tagColor": "8750a0",
@@ -2268,7 +2487,7 @@
         "accuracy": 98.2
       },
       {
-        "rank": 106,
+        "rank": 119,
         "tag": "RXT",
         "name": "Randora X",
         "tagColor": "d1499b",
